@@ -61,6 +61,7 @@ namespace Photon.Math
         public float length => GetLength();
         public Quaternion normalized => Normalize(this);
         public Quaternion conjugated => Conjugate(this);
+        public Quaternion inverse => Inverse(this);
 
         public static readonly Quaternion zero = new Quaternion(0f, 0f, 0f, 0f);
         public static readonly Quaternion identity = new Quaternion(0f, 0f, 0f, 1f);
@@ -105,7 +106,33 @@ namespace Photon.Math
         public static bool operator ==(Quaternion x, Quaternion y) => x.Equals(y);
         public static bool operator !=(Quaternion x, Quaternion y) => !x.Equals(y);
 
-        public static Quaternion FromEularAngleRadians(float pitch, float yaw, float roll)
+        public static float Dot(Quaternion x, Quaternion y)
+        {
+            return x._x * y._x + x._y * y._y + x._z * y._z + x._w * y._w;
+        }
+
+        public static Quaternion FromEulerAngleDegree(float pitch, float yaw, float roll)
+        {
+            float halfX = pitch * Mathf.Deg2Rad * 0.5f;
+            float halfY = yaw * Mathf.Deg2Rad * 0.5f;
+            float halfZ = roll * Mathf.Deg2Rad * 0.5f;
+
+            float cx = Mathf.Cos(halfX);
+            float sx = Mathf.Sin(halfX);
+            float cy = Mathf.Cos(halfY);
+            float sy = Mathf.Sin(halfY);
+            float cz = Mathf.Cos(halfZ);
+            float sz = Mathf.Sin(halfZ);
+
+            float x = sx * cy * cz + cx * sy * sz;
+            float y = cx * sy * cz - sx * cy * sz;
+            float z = cx * cy * sz + sx * sy * cz;
+            float w = cx * cy * cz - sx * sy * sz;
+
+            return new Quaternion(x, y, z, w);
+        }
+
+        public static Quaternion FromEulerAngleRadians(float pitch, float yaw, float roll)
         {
             float halfX = pitch * 0.5f;
             float halfY = yaw * 0.5f;
@@ -126,6 +153,24 @@ namespace Photon.Math
             return new Quaternion(x, y, z, w);
         }
 
+        public static Quaternion FromAxisAngleRadians(Vector3 axis, float angle)
+        {
+            float halfAngle = angle * 0.5f;
+            float sinHalf = Mathf.Sin(halfAngle);
+            float cosHalf = Mathf.Cos(halfAngle);
+
+            return new Quaternion(axis.x * sinHalf, axis.y * sinHalf, axis.z * sinHalf, cosHalf).normalized;
+        }
+
+        public static Quaternion FromAxisAngleDegree(Vector3 axis, float angle)
+        {
+            float halfAngle = angle * Mathf.Deg2Rad * 0.5f;
+            float sinHalf = Mathf.Sin(halfAngle);
+            float cosHalf = Mathf.Cos(halfAngle);
+
+            return new Quaternion(axis.x * sinHalf, axis.y * sinHalf, axis.z * sinHalf, cosHalf).normalized;
+        }
+
         public static Quaternion Normalize(Quaternion x)
         {
             float length = x.GetLength();
@@ -133,12 +178,71 @@ namespace Photon.Math
             {
                 return identity;
             }
-            return new Quaternion(x._x / length, x._y / length, x._z / length, x._w / length);
+
+            float invLength = 1f / length;
+
+            return new Quaternion(x._x * invLength, x._y * invLength, x._z * invLength, x._w * invLength);
         }
 
         public static Quaternion Conjugate(Quaternion x)
         {
             return new Quaternion(-x._x, -x._y, -x._z, x._w);
+        }
+
+        public static Quaternion Inverse(Quaternion x)
+        {
+            float length = x.length;
+            float lengthSquared = length * length;
+
+            if (lengthSquared < Mathf.Epsilon * Mathf.Epsilon)
+            {
+                return identity;
+            }
+
+            float invLengthSquared = 1f / lengthSquared;
+
+            return new Quaternion(-x._x * invLengthSquared, -x._y * invLengthSquared, -x._z * invLengthSquared, x._w * invLengthSquared);
+        }
+
+        public static Quaternion Lerp(Quaternion x, Quaternion y, float t)
+        {
+            return new Quaternion(Mathf.Lerp(x._x, y._x, t), Mathf.Lerp(x._y, y._y, t), Mathf.Lerp(x._z, y._z, t), Mathf.Lerp(x._w, y._w, t));
+        }
+
+        public static Quaternion LerpUnclamped(Quaternion x, Quaternion y, float t)
+        {
+            return new Quaternion(Mathf.LerpUnclamped(x._x, y._x, t), Mathf.LerpUnclamped(x._y, y._y, t), Mathf.LerpUnclamped(x._z, y._z, t), Mathf.LerpUnclamped(x._w, y._w, t));
+        }
+
+        public static Quaternion SmoothStep(Quaternion x, Quaternion y, float t)
+        {
+            return new Quaternion(Mathf.SmoothStep(x._x, y._x, t), Mathf.SmoothStep(x._y, y._y, t), Mathf.SmoothStep(x._z, y._z, t), Mathf.SmoothStep(x._w, y._w, t));
+        }
+
+        public static Quaternion Slerp(Quaternion x, Quaternion y, float t)
+        {
+            t = Mathf.Clamp01(t);
+            float dot = Dot(x, y);
+
+            Quaternion temp = y;
+            if (dot < 0f)
+            {
+                dot = -dot;
+                temp = -y;
+            }
+
+            if (dot > 1f - Mathf.Epsilon)
+            {
+                return Lerp(x, temp, t);
+            }
+
+            float theta = Mathf.Acos(dot);
+            float sinTheta = Mathf.Sin(theta);
+
+            float s1 = Mathf.Sin((1f - t) * theta) / sinTheta;
+            float s2 = Mathf.Sin(t * theta) / sinTheta;
+
+            return new Quaternion(s1 * x._x + s2 * temp._x, s1 * x._y + s2 * temp._y, s1 * x._z + s2 * temp._z, s1 * x._w + s2 * temp._w);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
