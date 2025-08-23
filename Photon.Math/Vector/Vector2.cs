@@ -136,19 +136,19 @@ namespace Photon.Math
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float SignedAngleDegree(Vector2 a, Vector2 b)
+        public static float SignedAngleDegree(Vector2 x, Vector2 y)
         {
-            float cross = Cross(a, b);
-            float dot = Dot(a, b);
+            float cross = Cross(x, y);
+            float dot = Dot(x, y);
 
             return Mathf.Atan2(cross, dot) * Mathf.Rad2Deg;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float SignedAngleRadians(Vector2 a, Vector2 b)
+        public static float SignedAngleRadians(Vector2 x, Vector2 y)
         {
-            float cross = Cross(a, b);
-            float dot = Dot(a, b);
+            float cross = Cross(x, y);
+            float dot = Dot(x, y);
 
             return Mathf.Atan2(cross, dot);
         }
@@ -278,21 +278,11 @@ namespace Photon.Math
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float GetLength()
         {
-
             if (_isDirty)
             {
-                if (_x == 0f && _y == 0f)
-                {
-                    _cachedLength = 0f;
-                }
-                else
-                {
-                    _cachedLength = Mathf.Sqrt(_x * _x + _y * _y);
-                }
-
+                _cachedLength = Mathf.Sqrt(_x * _x + _y * _y);
                 _isDirty = false;
             }
-
 
             return _cachedLength;
         }

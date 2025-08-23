@@ -283,15 +283,7 @@ namespace Photon.Math
         {
             if (_isDirty)
             {
-                if (_x == 0f && _y == 0f && _z == 0f)
-                {
-                    _cachedLength = 0f;
-                }
-                else
-                {
-                    _cachedLength = Mathf.Sqrt(_x * _x + _y * _y + _z * _z);
-                }
-
+                _cachedLength = Mathf.Sqrt(_x * _x + _y * _y + _z * _z);
                 _isDirty = false;
             }
 

@@ -353,7 +353,7 @@ namespace Photon.Math
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
-            return obj is Matrix4x4 m && Equals(m);
+            return obj is Matrix4x4 other && Equals(other);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
