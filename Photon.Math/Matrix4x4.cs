@@ -110,7 +110,7 @@ namespace Photon.Math
         }
 
         public Matrix4x4 transposed => Transpose(this);
-        public Matrix4x4 inverted => Invert(this);
+        public Matrix4x4 inverse => Inverse(this);
 
         public static readonly Matrix4x4 identity = new Matrix4x4(
             1f, 0f, 0f, 0f,
@@ -284,7 +284,7 @@ namespace Photon.Math
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4 Invert(Matrix4x4 x)
+        public static Matrix4x4 Inverse(Matrix4x4 x)
         {
             float a11 = x.m11, a12 = x.m12, a13 = x.m13, a14 = x.m14;
             float a21 = x.m21, a22 = x.m22, a23 = x.m23, a24 = x.m24;
