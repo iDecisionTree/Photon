@@ -279,6 +279,32 @@ namespace Photon.Math
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 TransformPoint(Vector3 v, Matrix4x4 matrix)
+        {
+            float x = matrix.m11 * v.x + matrix.m12 * v.y + matrix.m13 * v.z + matrix.m14;
+            float y = matrix.m21 * v.x + matrix.m22 * v.y + matrix.m23 * v.z + matrix.m24;
+            float z = matrix.m31 * v.x + matrix.m32 * v.y + matrix.m33 * v.z + matrix.m34;
+            float w = matrix.m41 * v.x + matrix.m42 * v.y + matrix.m43 * v.z + matrix.m44;
+
+            if (MathF.Abs(w) > Mathf.Epsilon && MathF.Abs(w - 1f) > Mathf.Epsilon)
+            {
+                return new Vector3(x / w, y / w, z / w);
+            }
+
+            return new Vector3(x, y, z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 TransformDirection(Vector3 v, Matrix4x4 matrix)
+        {
+            return new Vector3(
+                matrix.m11 * v.x + matrix.m12 * v.y + matrix.m13 * v.z,
+                matrix.m21 * v.x + matrix.m22 * v.y + matrix.m23 * v.z,
+                matrix.m31 * v.x + matrix.m32 * v.y + matrix.m33 * v.z
+            );
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float GetLength()
         {
             if (_isDirty)
