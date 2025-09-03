@@ -383,7 +383,7 @@ namespace Photon.Math
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
-            return $"Matrix4x4[\n\t{m11}, {m12}, {m13}, {m14}\n\t{m21}, {m22}, {m23}, {m24}\n\t{m31}, {m32}, {m33}, {m34}\n\t{m41}, {m42}, {m43}, {m44}\n]";
+            return $"Matrix4x4[\n\t{_m11}, {_m12}, {_m13}, {_m14}\n\t{_m21}, {_m22}, {_m23}, {_m24}\n\t{_m31}, {_m32}, {_m33}, {_m34}\n\t{_m41}, {_m42}, {_m43}, {_m44}\n]";
         }
     }
 }
