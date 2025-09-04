@@ -18,6 +18,9 @@ namespace Photon.Math
         public static int Sign(float x) => MathF.Sign(x);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float CopySign(float x, float y) => MathF.CopySign(x, y);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Min(float x, float y) => MathF.Min(x, y);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
