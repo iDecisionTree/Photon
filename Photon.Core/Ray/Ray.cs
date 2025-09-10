@@ -32,5 +32,10 @@ namespace Photon.Core
             _origin = origin;
             _direction = direction;
         }
+
+        public Vector3 At(float t)
+        {
+            return origin + t * _direction;
+        }
     }
 }

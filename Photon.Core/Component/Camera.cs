@@ -31,7 +31,7 @@ namespace Photon.Core
 
         public float fovRadians => _fov * Mathf.Deg2Rad;
 
-        public float aspect => film.width / film.height;
+        public float aspect => _film.width / (float)_film.height;
 
         public float near
         {
@@ -99,17 +99,41 @@ namespace Photon.Core
             Vector4 ndc = new Vector4(ndcX, ndcY, 1f, 1f);
             Vector4 view = Vector4.Transform(ndc, invProjectionMatrix);
             view /= view.W;
-            view.W = 0f;
             Vector4 world = Vector4.Transform(view, invViewMatrix);
 
-            Vector3 direction = new Vector3(world.X, world.Y, world.Z);
+            Vector3 direction = new Vector3(world.X, world.Y, world.Z) - sceneObject.transform.position;
 
             return new Ray(sceneObject.transform.position, Vector3.Normalize(direction));
         }
 
+        public void Render(Sphere s)
+        {
+            Vector3 light = new Vector3(1f, 1f, 1f);
+
+            Parallel.For(0, _film.height, y =>
+            {
+                for (int x = 0; x < _film.width; x++)
+                {
+                    float u = (x + 0.5f) / _film.width;
+                    float v = (y + 0.5f) / _film.height;
+
+                    Ray ray = GenerateRay(u, v);
+                    float? t = s.Intersect(ray);
+                    if (t.HasValue)
+                    {
+                        Vector3 hitPoint = ray.At(t.Value);
+                        Vector3 normal = Vector3.Normalize(hitPoint - s.position);
+                        Vector3 l = Vector3.Normalize(light - hitPoint);
+                        float cos = Mathf.Max(0f, Vector3.Dot(normal, l));
+                        _film.SetPixel(x, y, new Color(cos));
+                    }
+                }
+            });
+        }
+
         private void UpdateViewMatrix()
         {
-            _viewMatrix = Matrix4x4.CreateLookAtLeftHanded(sceneObject.transform.position, sceneObject.transform.forward, sceneObject.transform.up);
+            _viewMatrix = Matrix4x4.CreateLookToLeftHanded(sceneObject.transform.position, sceneObject.transform.forward, sceneObject.transform.up);
         }
 
         private void UpdateProjectionMatrix()

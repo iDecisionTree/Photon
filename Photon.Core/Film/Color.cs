@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,11 +31,37 @@ namespace Photon.Core
         private byte _g;
         private byte _b;
 
+        public Color(byte value)
+        {
+            _r = value;
+            _g = value;
+            _b = value;
+        }
+
+        public Color(float value)
+        {
+            _r = (byte)(value * 255f);
+            _g = (byte)(value * 255f);
+            _b = (byte)(value * 255f);
+        }
+
         public Color(byte r, byte g, byte b)
         {
             _r = r;
             _g = g;
             _b = b;
+        }
+
+        public Color(float r, float g, float b)
+        {
+            _r = (byte)(r * 255f);
+            _g = (byte)(g * 255f);
+            _b = (byte)(b * 255f);
+        }
+
+        public static Color FromVector(Vector3 v)
+        {
+            return new Color((byte)(v.X * 255f), (byte)(v.Y * 255f), (byte)(v.Z * 255f));
         }
     }
 }

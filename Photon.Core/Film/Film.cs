@@ -57,7 +57,7 @@ namespace Photon.Core
 
         public void Save(string filename)
         {
-            using(FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
+            using(FileStream fs = new FileStream(filename, FileMode.Create))
             {
                 fs.Write(Encoding.UTF8.GetBytes("P6\n"));
                 fs.Write(Encoding.UTF8.GetBytes($"{_width} {_height}\n"));
