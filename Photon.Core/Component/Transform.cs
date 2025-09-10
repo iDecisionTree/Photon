@@ -47,12 +47,12 @@ namespace Photon.Core
 
         public Action onTransformChanged;
 
-        public Vector3 forward => Vector3.Transform(-Vector3.UnitZ, _rotation);
-        public Vector3 back => Vector3.Transform(Vector3.UnitZ, _rotation); 
-        public Vector3 left => Vector3.Transform(-Vector3.UnitX, _rotation);
+        public Vector3 forward => Vector3.Transform(Vector3.UnitZ, _rotation);
+        public Vector3 back => Vector3.Transform(-Vector3.UnitZ, _rotation); 
         public Vector3 right => Vector3.Transform(Vector3.UnitX, _rotation);
-        public Vector3 down => Vector3.Transform(-Vector3.UnitY, _rotation);
+        public Vector3 left => Vector3.Transform(-Vector3.UnitX, _rotation);
         public Vector3 up => Vector3.Transform(Vector3.UnitY, _rotation);
+        public Vector3 down => Vector3.Transform(-Vector3.UnitY, _rotation);
 
         public Matrix4x4 translationMatrix => _translationMatrix;
         public Matrix4x4 rotationMatrix => _rotationMatrix;

@@ -9,6 +9,16 @@ namespace Photon.Core
 {
     public class Camera : Component
     {
+        public Film film
+        {
+            get => _film;
+            set
+            {
+                _film = value;
+                UpdateProjectionMatrix();
+            }
+        }
+
         public float fov
         {
             get => _fov;
@@ -21,15 +31,7 @@ namespace Photon.Core
 
         public float fovRadians => _fov * Mathf.Deg2Rad;
 
-        public float aspect
-        {
-            get => _aspect;
-            set
-            {
-                _aspect = value;
-                UpdateProjectionMatrix();
-            }
-        }
+        public float aspect => film.width / film.height;
 
         public float near
         {
@@ -51,8 +53,11 @@ namespace Photon.Core
             }
         }
 
+        public Matrix4x4 viewMatrix => _viewMatrix;
+        public Matrix4x4 projectionMatrix => _projectionMatrix;
+
+        private Film _film;
         private float _fov;
-        private float _aspect;
         private float _near;
         private float _far;
         private Matrix4x4 _viewMatrix;
@@ -61,8 +66,8 @@ namespace Photon.Core
         public Camera()
         {
             // 这里不从属性赋值是避免多次计算矩阵, 后面所有方法要从属性赋值
+            _film = new Film(1920, 1080);
             _fov = 90f;
-            _aspect = 16f / 9f;
             _near = 0.3f;
             _far = 1000f;
         }
@@ -76,6 +81,32 @@ namespace Photon.Core
             UpdateProjectionMatrix();
         }
 
+        public void SetResolution(int width, int height)
+        {
+            film = new Film(width, height);
+        }
+
+        public Ray GenerateRay(float u, float v)
+        {
+            Matrix4x4 invViewMatrix;
+            Matrix4x4.Invert(_viewMatrix, out invViewMatrix);
+            Matrix4x4 invProjectionMatrix;
+            Matrix4x4.Invert(_projectionMatrix, out invProjectionMatrix);
+
+            float ndcX = 2f * u - 1f;
+            float ndcY = 1f - 2f * v;
+
+            Vector4 ndc = new Vector4(ndcX, ndcY, 1f, 1f);
+            Vector4 view = Vector4.Transform(ndc, invProjectionMatrix);
+            view /= view.W;
+            view.W = 0f;
+            Vector4 world = Vector4.Transform(view, invViewMatrix);
+
+            Vector3 direction = new Vector3(world.X, world.Y, world.Z);
+
+            return new Ray(sceneObject.transform.position, Vector3.Normalize(direction));
+        }
+
         private void UpdateViewMatrix()
         {
             _viewMatrix = Matrix4x4.CreateLookAtLeftHanded(sceneObject.transform.position, sceneObject.transform.forward, sceneObject.transform.up);
@@ -83,7 +114,7 @@ namespace Photon.Core
 
         private void UpdateProjectionMatrix()
         {
-            _projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfViewLeftHanded(fovRadians, _aspect, _near, _far);
+            _projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfViewLeftHanded(fovRadians, aspect, _near, _far);
         }
     }
 }
