@@ -9,54 +9,36 @@ namespace Photon.Core
 {
     public struct Color
     {
-        public byte r
-        {
-            get => _r;
-            set => _r = value;
-        }
-
-        public byte g
-        {
-            get => _g;
-            set => _g = value;
-        }
-
-        public byte b
-        {
-            get => _b;
-            set => _b = value;
-        }
-
-        private byte _r;
-        private byte _g;
-        private byte _b;
+        public byte r;
+        public byte g;
+        public byte b;
 
         public Color(byte value)
         {
-            _r = value;
-            _g = value;
-            _b = value;
+            r = value;
+            g = value;
+            b = value;
         }
 
         public Color(float value)
         {
-            _r = (byte)(value * 255f);
-            _g = (byte)(value * 255f);
-            _b = (byte)(value * 255f);
+            r = (byte)(value * 255f);
+            g = (byte)(value * 255f);
+            b = (byte)(value * 255f);
         }
 
         public Color(byte r, byte g, byte b)
         {
-            _r = r;
-            _g = g;
-            _b = b;
+            r = r;
+            g = g;
+            b = b;
         }
 
         public Color(float r, float g, float b)
         {
-            _r = (byte)(r * 255f);
-            _g = (byte)(g * 255f);
-            _b = (byte)(b * 255f);
+            r = (byte)(r * 255f);
+            g = (byte)(g * 255f);
+            b = (byte)(b * 255f);
         }
 
         public static Color FromVector(Vector3 v)

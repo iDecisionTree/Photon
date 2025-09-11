@@ -118,13 +118,11 @@ namespace Photon.Core
                     float v = (y + 0.5f) / _film.height;
 
                     Ray ray = GenerateRay(u, v);
-                    float? t = s.Intersect(ray);
-                    if (t.HasValue)
+                    HitInfo hitInfo;
+                    if (s.Intersect(ray, out hitInfo))
                     {
-                        Vector3 hitPoint = ray.At(t.Value);
-                        Vector3 normal = Vector3.Normalize(hitPoint - s.position);
-                        Vector3 l = Vector3.Normalize(light - hitPoint);
-                        float cos = Mathf.Max(0f, Vector3.Dot(normal, l));
+                        Vector3 l = Vector3.Normalize(light - hitInfo.point);
+                        float cos = Mathf.Max(0f, Vector3.Dot(hitInfo.normal, l));
                         _film.SetPixel(x, y, new Color(cos));
                     }
                 }

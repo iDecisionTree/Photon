@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Photon.Core
 {
-    public class MeshRenderer : Component
+    public interface HitableObject
     {
-        public 
+        public abstract bool Intersect(Ray ray, out HitInfo hitInfo);
     }
 }
