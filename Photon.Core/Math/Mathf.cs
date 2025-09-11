@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Photon.Core
+﻿namespace Photon.Core
 {
     public static class Mathf
     {

@@ -1,11 +1,6 @@
 ﻿/// 胶片由相机类管理
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Photon.Core
 {
@@ -26,7 +21,7 @@ namespace Photon.Core
         private int _width;
         private int _height;
         private byte[] _pixels;
-        
+
         public Film(int width = 1920, int height = 1080)
         {
             _width = width;
@@ -57,7 +52,7 @@ namespace Photon.Core
 
         public void Save(string filename)
         {
-            using(FileStream fs = new FileStream(filename, FileMode.Create))
+            using (FileStream fs = new FileStream(filename, FileMode.Create))
             {
                 fs.Write(Encoding.UTF8.GetBytes("P6\n"));
                 fs.Write(Encoding.UTF8.GetBytes($"{_width} {_height}\n"));

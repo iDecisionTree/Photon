@@ -13,14 +13,16 @@ namespace Photon.Editor
         {
             InitializeComponent();
 
+            Mesh mesh = ObjImporter.Import("bunny.obj", false);
+
             SceneObject obj = new SceneObject("Camera");
             Camera camera = obj.AddComponent<Camera>();
 
-            camera.sceneObject.transform.position = new Vector3(0, 0, 1);
-            camera.sceneObject.transform.Rotate(Mathf.Deg2Rad * 180, 0, 0);
+            camera.sceneObject.transform.position = new Vector3(0, 0.5f, 1);
+            camera.sceneObject.transform.Rotate(0, Mathf.Deg2Rad * 180, 0);
 
             Sphere sphere = new Sphere(Vector3.Zero, 0.5f);
-            camera.Render(sphere);
+            camera.Render(mesh);
             camera.film.Save("output.ppm");
         }
     }

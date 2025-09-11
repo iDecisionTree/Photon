@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 namespace Photon.Core
 {
@@ -11,7 +6,7 @@ namespace Photon.Core
     {
         public Vector3 origin;
         public Vector3 direction;
-    
+
         /// <summary>
         /// 传入的方向默认已经归一化
         /// </summary>

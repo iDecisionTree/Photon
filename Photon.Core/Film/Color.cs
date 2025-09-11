@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 namespace Photon.Core
 {
@@ -29,16 +24,23 @@ namespace Photon.Core
 
         public Color(byte r, byte g, byte b)
         {
-            r = r;
-            g = g;
-            b = b;
+            this.r = r;
+            this.g = g;
+            this.b = b;
         }
 
         public Color(float r, float g, float b)
         {
-            r = (byte)(r * 255f);
-            g = (byte)(g * 255f);
-            b = (byte)(b * 255f);
+            this.r = (byte)(r * 255f);
+            this.g = (byte)(g * 255f);
+            this.b = (byte)(b * 255f);
+        }
+
+        public Color(Vector3 v)
+        {
+            r = (byte)(v.X * 255f);
+            g = (byte)(v.Y * 255f);
+            b = (byte)(v.Z * 255f);
         }
 
         public static Color FromVector(Vector3 v)

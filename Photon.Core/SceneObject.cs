@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Photon.Core
+﻿namespace Photon.Core
 {
     public class SceneObject
     {
         public string name
-        { 
-            get => _name; 
-            set => _name = value; 
+        {
+            get => _name;
+            set => _name = value;
         }
 
         public Transform transform => _transform;

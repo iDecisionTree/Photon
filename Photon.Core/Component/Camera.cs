@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 namespace Photon.Core
 {
@@ -106,9 +101,9 @@ namespace Photon.Core
             return new Ray(sceneObject.transform.position, Vector3.Normalize(direction));
         }
 
-        public void Render(Sphere s)
+        public void Render(HitableObject obj)
         {
-            Vector3 light = new Vector3(1f, 1f, 1f);
+            Vector3 light = new Vector3(0f, 2f, 2f);
 
             Parallel.For(0, _film.height, y =>
             {
@@ -119,11 +114,12 @@ namespace Photon.Core
 
                     Ray ray = GenerateRay(u, v);
                     HitInfo hitInfo;
-                    if (s.Intersect(ray, out hitInfo))
+                    if (obj.Intersect(ray, out hitInfo))
                     {
                         Vector3 l = Vector3.Normalize(light - hitInfo.point);
-                        float cos = Mathf.Max(0f, Vector3.Dot(hitInfo.normal, l));
-                        _film.SetPixel(x, y, new Color(cos));
+                        float cos = Mathf.Max(0, Vector3.Dot(hitInfo.normal, l));
+                        Vector3 nColor = (hitInfo.normal + Vector3.One) * 0.5f;
+                        _film.SetPixel(x, y, new Color(nColor));
                     }
                 }
             });
