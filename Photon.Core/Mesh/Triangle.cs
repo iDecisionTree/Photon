@@ -22,8 +22,39 @@ namespace Photon.Core
 
         public bool Intersect(Ray ray, out HitInfo hitInfo)
         {
+            Vector3 e1 = v1.position - v0.position;
+            Vector3 e2 = v2.position - v0.position;
+            Vector3 s1 = Vector3.Cross(ray.direction, e1);
+            float invDet = 1f / Vector3.Dot(s1, e1);
+
+            Vector3 s = ray.origin - v0.position;
+            float u = Vector3.Dot(s1, s) * invDet;
+            if (u < 0f || u > 1f)
+            {
+                hitInfo = new HitInfo();
+                return false;
+            }
+
+            Vector3 s2 = Vector3.Cross(s, e1);
+            float v = Vector3.Dot(s2, ray.direction) * invDet;
+            if (v < 0f || u + v > 1f) 
+            {
+                hitInfo = new HitInfo();
+                return false;
+            }
+
+            float t = Vector3.Dot(s2, e2) * invDet;
+            if (t > Mathf.Epsilon && t < float.MaxValue)
+            {
+                Vector3 point = ray.At(t);
+                Vector3 normal = (1f - u - v) * v0.normal + u * v1.normal + v * v2.normal;
+                hitInfo = new HitInfo(t, point, normal);
+
+                return true;
+            }
+
             hitInfo = new HitInfo();
-            return true;
+            return false;
         }
     }
 }

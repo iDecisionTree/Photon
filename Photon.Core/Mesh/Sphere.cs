@@ -36,11 +36,11 @@ namespace Photon.Core
             float t1 = (-b - sqrtDiscriminant) / (2f * a);
             float t2 = (-b + sqrtDiscriminant) / (2f * a);
             float t = float.MaxValue;
-            if (t1 > 0f)
+            if (t1 > Mathf.Epsilon)
             {
                 t = t1;
             }
-            if (t2 > 0f && t2 < t)
+            if (t2 > Mathf.Epsilon && t2 < t)
             {
                 t = t2;
             }
