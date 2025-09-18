@@ -101,7 +101,7 @@ namespace Photon.Core
             return new Ray(sceneObject.transform.position, Vector3.Normalize(direction));
         }
 
-        public void Render(HitableObject obj)
+        public void Render(Scene scene)
         {
             Vector3 light = new Vector3(0f, 2f, 2f);
 
@@ -114,12 +114,12 @@ namespace Photon.Core
 
                     Ray ray = GenerateRay(u, v);
                     HitInfo hitInfo;
-                    if (obj.Intersect(ray, out hitInfo))
+                    if (scene.Intersect(ray, out hitInfo))
                     {
                         Vector3 l = Vector3.Normalize(light - hitInfo.point);
                         float cos = Mathf.Max(0, Vector3.Dot(hitInfo.normal, l));
                         Vector3 nColor = (hitInfo.normal + Vector3.One) * 0.5f;
-                        _film.SetPixel(x, y, new Color(nColor));
+                        _film.SetPixel(x, y, new Color(cos));
                     }
                 }
             });

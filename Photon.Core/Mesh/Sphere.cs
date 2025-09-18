@@ -4,18 +4,16 @@ namespace Photon.Core
 {
     public class Sphere : HitableObject
     {
-        public Vector3 position;
-        public float radius;
-
-        public Sphere(Vector3 position, float radius)
+        public Sphere(string name = "New Sphere") : base(false, name)
         {
-            this.position = position;
-            this.radius = radius;
+            
         }
 
-        public bool Intersect(Ray ray, out HitInfo hitInfo)
+        public override bool Intersect(Ray ray, out HitInfo hitInfo)
         {
-            Vector3 oc = ray.origin - position;
+            float radius = (transform.scale.X + transform.scale.Y + transform.scale.Z) / 3f;
+
+            Vector3 oc = ray.origin - transform.position;
             float a = Vector3.Dot(ray.direction, ray.direction);
             float b = 2f * Vector3.Dot(oc, ray.direction);
             float c = Vector3.Dot(oc, oc) - radius * radius;
@@ -47,7 +45,7 @@ namespace Photon.Core
             }
 
             Vector3 point = ray.At(t);
-            Vector3 normal = Vector3.Normalize(point - position);
+            Vector3 normal = Vector3.Normalize(point - transform.position);
             hitInfo = new HitInfo(t, point, normal);
 
             return true;

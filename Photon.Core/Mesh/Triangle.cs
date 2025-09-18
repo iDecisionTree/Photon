@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Photon.Core
 {
-    public struct Triangle : HitableObject
+    public struct Triangle
     {
         public Vertex v0;
         public Vertex v1;

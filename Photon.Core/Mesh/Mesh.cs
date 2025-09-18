@@ -2,7 +2,7 @@
 
 namespace Photon.Core
 {
-    public class Mesh : HitableObject
+    public class Mesh
     {
         public string name
         {
@@ -33,6 +33,12 @@ namespace Photon.Core
 
         public int triangleCount => triangles.Length;
 
+        public Mesh(string name = "New Mesh")
+        {
+            _triangles = Array.Empty<Triangle>();
+            _name = name;
+        }
+
         public Mesh(Triangle[] triangles, string name = "New Mesh")
         {
             _triangles = triangles;
@@ -62,9 +68,9 @@ namespace Photon.Core
 
             for (int i = 0; i < triangles.Length; i++)
             {
-                if (triangles[i].Intersect(ray, out HitInfo info) && info.t < hitInfo.t)
+                if (triangles[i].Intersect(ray, out HitInfo tempInfo) && tempInfo.t < hitInfo.t)
                 {
-                    hitInfo = info;
+                    hitInfo = tempInfo;
                     isHit = true;
                 }
             }

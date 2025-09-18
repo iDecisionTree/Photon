@@ -1,6 +1,7 @@
 ﻿using Photon.Core;
 using System.Numerics;
 using System.Windows;
+using Plane = Photon.Core.Plane;
 
 namespace Photon.Editor
 {
@@ -18,11 +19,17 @@ namespace Photon.Editor
             SceneObject obj = new SceneObject("Camera");
             Camera camera = obj.AddComponent<Camera>();
 
-            camera.sceneObject.transform.position = new Vector3(0, 0.5f, 1);
+            camera.sceneObject.transform.position = new Vector3(0f, 0.1f, 1);
             camera.sceneObject.transform.Rotate(0, Mathf.Deg2Rad * 180, 0);
 
-            Sphere sphere = new Sphere(Vector3.Zero, 0.5f);
-            camera.Render(mesh);
+            Scene scene = new Scene();
+            scene.AddHitableObject(new Plane());
+            Sphere sphere = new Sphere();
+            sphere.transform.scale = new Vector3(0.5f, 0.5f, 0.5f);
+            sphere.transform.position = new Vector3(0f, 0.1f, 0f);
+            scene.AddHitableObject(sphere);
+
+            camera.Render(scene);
             camera.film.Save("output.ppm");
         }
     }
