@@ -4,6 +4,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="Photon.Core/Photon.Core.csproj" Id="83ec54d6-c62b-4984-b6ce-badba88d0c4f" />
   <Project Path="Photon.Editor/Photon.Editor.csproj">
     <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="*|x64" Project="x64" />

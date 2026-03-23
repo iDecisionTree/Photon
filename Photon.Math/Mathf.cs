@@ -106,6 +106,11 @@ namespace Photon.Math
             return MathF.Log(x);
         }
 
+        public static float Log(float x, float y)
+        {
+            return MathF.Log(x, y);
+        }
+
         public static float Log10(float x)
         {
             return MathF.Log10(x);

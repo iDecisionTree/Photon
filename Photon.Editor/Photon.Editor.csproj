@@ -35,6 +35,11 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260209005" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Photon.Core\Photon.Core.csproj" />
+    <ProjectReference Include="..\Photon.Math\Photon.Math.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
