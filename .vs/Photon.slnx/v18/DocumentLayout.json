@@ -1,12 +1,54 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\14779\\Desktop\\C#\\Photon\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D27CD315-4390-48EA-A62B-041D454C2D06}|Photon.Editor\\Photon.Editor.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.editor\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D27CD315-4390-48EA-A62B-041D454C2D06}|Photon.Editor\\Photon.Editor.csproj|solutionrelative:photon.editor\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D27CD315-4390-48EA-A62B-041D454C2D06}|Photon.Editor\\Photon.Editor.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.editor\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D27CD315-4390-48EA-A62B-041D454C2D06}|Photon.Editor\\Photon.Editor.csproj|solutionrelative:photon.editor\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Photon.Editor\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Photon.Editor\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAUwDwAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-23T08:54:19.728Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Photon.Editor\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\MainWindow.xaml",
+              "RelativeToolTip": "Photon.Editor\\MainWindow.xaml",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAABQAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-23T08:36:44.251Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
