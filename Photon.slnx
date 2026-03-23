@@ -10,4 +10,5 @@
     <Platform Solution="*|x86" Project="x86" />
     <Deploy />
   </Project>
+  <Project Path="Photon.Math/Photon.Math.csproj" Id="a4c124aa-ba9c-4c97-af70-03536aa6ba63" />
 </Solution>
