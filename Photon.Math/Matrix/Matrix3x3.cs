@@ -309,15 +309,9 @@ namespace Photon.Math.Matrix
         public override int GetHashCode()
         {
             HashCode hash = new();
-            hash.Add(m00);
-            hash.Add(m01);
-            hash.Add(m02);
-            hash.Add(m10);
-            hash.Add(m11);
-            hash.Add(m12);
-            hash.Add(m20);
-            hash.Add(m21);
-            hash.Add(m22);
+            hash.Add(m00); hash.Add(m01); hash.Add(m02);
+            hash.Add(m10); hash.Add(m11); hash.Add(m12);
+            hash.Add(m20); hash.Add(m21); hash.Add(m22);
             return hash.ToHashCode();
         }
 
