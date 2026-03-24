@@ -163,27 +163,10 @@ namespace Photon.Math
             return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
         }
 
-        public static Quaternion FromEulerAngles(float x, float y, float z)
-        {
-            float cx = Mathf.Cos(x * 0.5f);
-            float cy = Mathf.Cos(y * 0.5f);
-            float cz = Mathf.Cos(z * 0.5f);
-            float sx = Mathf.Sin(x * 0.5f);
-            float sy = Mathf.Sin(y * 0.5f);
-            float sz = Mathf.Sin(z * 0.5f);
-
-            return new Quaternion(
-                sx * cy * cz - cx * sy * sz,
-                cx * sy * cz + sx * cy * sz,
-                cx * cy * sz - sx * sy * cz,
-                cx * cy * cz + sx * sy * sz
-            );
-        }
-
         /// <summary>
         /// Z-X-Y内旋, 接受弧度
         /// </summary>
-        public static Quaternion FromEuler(float yaw, float pitch, float roll)
+        public static Quaternion FromEulerAngles(float yaw, float pitch, float roll)
         {
             float cy = Mathf.Cos(yaw * 0.5f);
             float sy = Mathf.Sin(yaw * 0.5f);

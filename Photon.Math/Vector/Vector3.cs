@@ -81,7 +81,8 @@ namespace Photon.Math.Vector
                 throw new DivideByZeroException($"{a.ToString()}不能除以0");
             }
 
-            return new Vector3(a.x / b, a.y / b, a.z / b);
+            float inv = 1f / b;
+            return new Vector3(a.x * inv, a.y * inv, a.z * inv);
         }
 
         public static Vector3 operator /(float a, Vector3 b)
