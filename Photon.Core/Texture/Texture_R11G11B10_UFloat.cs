@@ -1,6 +1,5 @@
 ﻿using Photon.Math;
 using Photon.Math.Vector;
-using System;
 
 namespace Photon.Core.Texture
 {

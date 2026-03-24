@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Photon.Math
+﻿namespace Photon.Math
 {
     public static class Mathf
     {

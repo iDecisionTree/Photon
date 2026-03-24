@@ -1,9 +1,4 @@
-﻿using Photon.Math.Vector;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Photon.Core.Texture
+﻿namespace Photon.Core.Texture
 {
     public static class TextureFormatHelper
     {

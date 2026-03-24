@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Photon.Math.Vector
 {
@@ -41,7 +37,7 @@ namespace Photon.Math.Vector
             return new Vector2(a + b.x, a + b.y);
         }
 
-        public static Vector2 operator-(Vector2 a, Vector2 b)
+        public static Vector2 operator -(Vector2 a, Vector2 b)
         {
             return new Vector2(a.x - b.x, a.y - b.y);
         }
@@ -87,7 +83,7 @@ namespace Photon.Math.Vector
             {
                 throw new DivideByZeroException($"{b.ToString()}不能做除数");
             }
-            
+
             return new Vector2(a / b.x, a / b.y);
         }
 

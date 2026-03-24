@@ -1,22 +1,21 @@
 ﻿using Photon.Math.Vector;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Photon.Core.Texture
 {
-    public class Texture2D
+    public class Texture2D : IDisposable
     {
         public int width => _width;
         public int height => _height;
         public TextureFormat format => _format;
         public TextureFormatInfo formatInfo => _formatInfo;
+        public bool isDisposed => _isDisposed;
 
         private int _width;
         private int _height;
         private TextureFormat _format;
         private TextureFormatInfo _formatInfo;
-        private byte[] _data;
+        private byte[]? _data;
+        private bool _isDisposed;
 
         public Texture2D(int width, int height, TextureFormat format)
         {
@@ -28,8 +27,9 @@ namespace Photon.Core.Texture
                 throw new NotSupportedException($"不支持纹理格式{format}");
             }
             _data = new byte[GetByteLength()];
+            _isDisposed = false;
         }
-        
+
         public Texture2D(int width, int height, TextureFormat format, byte[] data)
         {
             _width = width;
@@ -44,9 +44,10 @@ namespace Photon.Core.Texture
                 throw new ArgumentException("数据长度与纹理格式不匹配");
             }
             _data = data;
+            _isDisposed = false;
         }
 
-        public int GetByteLength() 
+        public int GetByteLength()
         {
             return formatInfo.GetByteLength(width, height);
         }
@@ -56,6 +57,10 @@ namespace Photon.Core.Texture
             if (!IsValidPixel(x, y))
             {
                 throw new ArgumentException($"像素坐标({x},{y})超出纹理范围({_width}x{_height})");
+            }
+            if (_data == null)
+            {
+                throw new InvalidOperationException("纹理数据未初始化");
             }
 
             int pixelIndex = GetPixelIndex(x, y);
@@ -67,6 +72,10 @@ namespace Photon.Core.Texture
             if (!IsValidPixel(x, y))
             {
                 throw new ArgumentException($"像素坐标({x},{y})超出纹理范围({_width}x{_height})");
+            }
+            if (_data == null)
+            {
+                throw new InvalidOperationException("纹理数据未初始化");
             }
 
             int pixelIndex = GetPixelIndex(x, y);
@@ -81,6 +90,18 @@ namespace Photon.Core.Texture
         private bool IsValidPixel(int x, int y)
         {
             return x >= 0 && x < width && y >= 0 && y < height;
+        }
+
+        public void Dispose()
+        {
+            if (isDisposed)
+            {
+                return;
+            }
+
+            _data = null;
+            _isDisposed = true;
+            GC.SuppressFinalize(this);
         }
     }
 }

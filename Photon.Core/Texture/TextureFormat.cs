@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Photon.Core.Texture
+﻿namespace Photon.Core.Texture
 {
     public enum TextureFormat
     {

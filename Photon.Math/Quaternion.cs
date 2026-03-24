@@ -1,8 +1,5 @@
 ﻿using Photon.Math.Vector;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Photon.Math
 {
@@ -127,7 +124,7 @@ namespace Photon.Math
                 throw new DivideByZeroException($"{a.ToString()}不能除以0");
             }
 
-            float inv = 1f / b; 
+            float inv = 1f / b;
             return new Quaternion(a.x * inv, a.y * inv, a.z * inv, a.w * inv);
         }
 
