@@ -71,40 +71,12 @@ namespace Photon.Math
             );
         }
 
-        public static Vector3 operator *(Quaternion a, Vector3 b)
+        public static Vector3 operator *(Quaternion q, Vector3 v)
         {
-            float qx = a.x, qy = a.y, qz = a.z, qw = a.w;
-            float vx = b.x, vy = b.y, vz = b.z;
+            Vector3 u = new Vector3(q.x, q.y, q.z);
+            Vector3 t = 2f * Vector3.Cross(u, v);
 
-            float crossX = qy * vz - qz * vy;
-            float crossY = qz * vx - qx * vz;
-            float crossZ = qx * vy - qy * vx;
-
-            float dot = qx * vx + qy * vy + qz * vz;
-
-            float x = vx * (qw * qw - qx * qx - qy * qy + qz * qz) + 2f * (qy * crossY + qz * crossZ + dot * qx);
-            float y = vy * (qw * qw - qx * qx + qy * qy - qz * qz) + 2f * (qx * crossX + qz * crossZ + dot * qy);
-            float z = vz * (qw * qw + qx * qx - qy * qy - qz * qz) + 2f * (qx * crossX + qy * crossY + dot * qz);
-
-            return new Vector3(x, y, z);
-        }
-
-        public static Vector3 operator *(Vector3 a, Quaternion b)
-        {
-            float vx = a.x, vy = a.y, vz = a.z;
-            float qx = b.x, qy = b.y, qz = b.z, qw = b.w;
-
-            float crossX = qy * vz - qz * vy;
-            float crossY = qz * vx - qx * vz;
-            float crossZ = qx * vy - qy * vx;
-
-            float dot = qx * vx + qy * vy + qz * vz;
-
-            float x = vx * (qw * qw - qx * qx - qy * qy + qz * qz) + 2f * (qy * crossY + qz * crossZ + dot * qx);
-            float y = vy * (qw * qw - qx * qx + qy * qy - qz * qz) + 2f * (qx * crossX + qz * crossZ + dot * qy);
-            float z = vz * (qw * qw + qx * qx - qy * qy - qz * qz) + 2f * (qx * crossX + qy * crossY + dot * qz);
-
-            return new Vector3(x, y, z);
+            return v + q.w * t + Vector3.Cross(u, t);
         }
 
         public static Quaternion operator *(Quaternion a, float b)
@@ -148,16 +120,6 @@ namespace Photon.Math
             return new Quaternion(-q.x, -q.y, -q.z, q.w);
         }
 
-        public static float Distance(Quaternion a, Quaternion b)
-        {
-            return (a - b).length;
-        }
-
-        public static float DistanceSquared(Quaternion a, Quaternion b)
-        {
-            return (a - b).lengthSquared;
-        }
-
         public static float Dot(Quaternion a, Quaternion b)
         {
             return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
@@ -166,21 +128,24 @@ namespace Photon.Math
         /// <summary>
         /// Z-X-Y内旋, 接受弧度
         /// </summary>
-        public static Quaternion FromEulerAngles(float yaw, float pitch, float roll)
+        public static Quaternion FromEulerAngles(float z, float x, float y)
         {
-            float cy = Mathf.Cos(yaw * 0.5f);
-            float sy = Mathf.Sin(yaw * 0.5f);
-            float cx = Mathf.Cos(pitch * 0.5f);
-            float sx = Mathf.Sin(pitch * 0.5f);
-            float cz = Mathf.Cos(roll * 0.5f);
-            float sz = Mathf.Sin(roll * 0.5f);
+            float hz = z * 0.5f;
+            float hx = x * 0.5f;
+            float hy = y * 0.5f;
 
-            return new Quaternion(
-                sx * cy * cz + cx * sy * sz,
-                cx * sy * cz - sx * cy * sz,
-                cx * cy * sz - sx * sy * cz,
-                cx * cy * cz + sx * sy * sz
-            );
+            float cz = Mathf.Cos(hz);
+            float sz = Mathf.Sin(hz);
+            float cx = Mathf.Cos(hx);
+            float sx = Mathf.Sin(hx);
+            float cy = Mathf.Cos(hy);
+            float sy = Mathf.Sin(hy);
+
+            Quaternion qz = new Quaternion(0f, 0f, sz, cz);
+            Quaternion qx = new Quaternion(sx, 0f, 0f, cx);
+            Quaternion qy = new Quaternion(0f, sy, 0f, cy);
+
+            return qy * qx * qz;
         }
 
         public static Quaternion Invert(Quaternion q)
@@ -188,7 +153,7 @@ namespace Photon.Math
             float lengthSquared = q.lengthSquared;
             if (Mathf.Approximately(lengthSquared, 0f))
             {
-                return identity;
+                throw new InvalidOperationException($"四元数{q}不可逆");
             }
             return q.conjugated / q.lengthSquared;
         }
@@ -205,12 +170,12 @@ namespace Photon.Math
 
         public static Quaternion Lerp(Quaternion a, Quaternion b, float t)
         {
-            return a + (b - a) * Mathf.Clamp01(t);
+            return (a + (b - a) * Mathf.Clamp01(t)).normalized;
         }
 
         public static Quaternion LerpUnclamped(Quaternion a, Quaternion b, float t)
         {
-            return a + (b - a) * t;
+            return (a + (b - a) * t).normalized;
         }
 
         public static Quaternion Normalize(Quaternion q)
