@@ -207,7 +207,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// Z-X-Y 内旋, 接受弧度
         /// </summary>
-        public static Matrix4x4 CreateFromEulerAngles(float z, float x, float y)
+        public static Matrix4x4 CreateFromEulerAngles(float x, float y, float z)
         {
             Matrix4x4 rz = CreateRotationZ(z);
             Matrix4x4 rx = CreateRotationX(x);

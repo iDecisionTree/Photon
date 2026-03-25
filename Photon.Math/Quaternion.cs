@@ -128,7 +128,7 @@ namespace Photon.Math
         /// <summary>
         /// Z-X-Y内旋, 接受弧度
         /// </summary>
-        public static Quaternion FromEulerAngles(float z, float x, float y)
+        public static Quaternion FromEulerAngles(float x, float y, float z)
         {
             float hz = z * 0.5f;
             float hx = x * 0.5f;
