@@ -1,6 +1,4 @@
-﻿using Photon.Math;
-using Photon.Math.Vector;
-using System;
+﻿using Photon.Math.Vector;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Photon.Math.Matrix
@@ -439,7 +437,7 @@ namespace Photon.Math.Matrix
         private static float Determinant3(float a00, float a01, float a02, float a10, float a11, float a12, float a20, float a21, float a22)
         {
             return a00 * (a11 * a22 - a12 * a21) - a01 * (a10 * a22 - a12 * a20) + a02 * (a10 * a21 - a11 * a20);
-        }       
+        }
 
         public override bool Equals([NotNullWhen(true)] object? obj)
         {

@@ -1,9 +1,4 @@
 ﻿using Photon.Core.Component;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Photon.Core.Scene
 {
@@ -14,7 +9,7 @@ namespace Photon.Core.Scene
 
         private readonly Dictionary<Type, ComponentBase> _components;
 
-        public SceneObject(string name)
+        public SceneObject(string name = "SceneObject")
         {
             this.name = name;
             _components = new Dictionary<Type, ComponentBase>();
@@ -30,7 +25,7 @@ namespace Photon.Core.Scene
                 component.sceneObject = this;
                 _components.Add(type, component);
                 component.Initialize();
-                
+
                 return component;
             }
 

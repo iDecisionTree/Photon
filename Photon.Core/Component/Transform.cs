@@ -1,12 +1,6 @@
-﻿using Photon.Core.Scene;
-using Photon.Math;
+﻿using Photon.Math;
 using Photon.Math.Matrix;
 using Photon.Math.Vector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Photon.Core.Component
 {

@@ -1,9 +1,4 @@
 ﻿using Photon.Core.Scene;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Photon.Core.Component
 {
@@ -19,7 +14,7 @@ namespace Photon.Core.Component
         {
         }
 
-        public virtual void Update() 
+        public virtual void Update()
         {
         }
 

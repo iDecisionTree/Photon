@@ -148,6 +148,16 @@ namespace Photon.Math.Vector
             return a + (b - a) * t;
         }
 
+        public static Vector4 Max(Vector4 a, Vector4 b)
+        {
+            return new Vector4(Mathf.Max(a.x, b.x), Mathf.Max(a.y, b.y), Mathf.Max(a.z, b.z), Mathf.Max(a.w, b.w));
+        }
+
+        public static Vector4 Min(Vector4 a, Vector4 b)
+        {
+            return new Vector4(Mathf.Min(a.x, b.x), Mathf.Min(a.y, b.y), Mathf.Min(a.z, b.z), Mathf.Min(a.w, b.w));
+        }
+
         public static Vector4 Normalize(Vector4 v)
         {
             float length = v.length;

@@ -20,6 +20,7 @@ namespace Photon.Core.RenderPipeline
             _width = width;
             _height = height;
             _colorBuffer = new Texture2D(width, height, TextureFormat.R11G11B10_UFloat);
+            _isDisposed = false;
         }
 
         public Vector4 GetColor(int x, int y)
