@@ -8,6 +8,7 @@
             { TextureFormat.R11G11B10_UFloat, new Texture_R11G11B10_UFloat() },
             { TextureFormat.RGBA32_Float, new Texture_RGBA32_Float() },
             { TextureFormat.D24_UNorm, new Texture_D24_UNorm() },
+            { TextureFormat.B8G8R8A8_UNorm, new Texture_B8G8R8A8_UNorm() }
         };
 
         public static bool TryGetFormatInfo(TextureFormat format, out TextureFormatInfo formatInfo)

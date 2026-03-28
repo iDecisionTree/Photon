@@ -128,6 +128,29 @@ namespace Photon.Math
         /// <summary>
         /// Z-X-Y内旋, 接受弧度
         /// </summary>
+        public static Quaternion FromEulerAngles(Vector3 eulerAngles)
+        {
+            float hz = eulerAngles.z * 0.5f;
+            float hx = eulerAngles.x * 0.5f;
+            float hy = eulerAngles.y * 0.5f;
+
+            float cz = Mathf.Cos(hz);
+            float sz = Mathf.Sin(hz);
+            float cx = Mathf.Cos(hx);
+            float sx = Mathf.Sin(hx);
+            float cy = Mathf.Cos(hy);
+            float sy = Mathf.Sin(hy);
+
+            Quaternion qz = new Quaternion(0f, 0f, sz, cz);
+            Quaternion qx = new Quaternion(sx, 0f, 0f, cx);
+            Quaternion qy = new Quaternion(0f, sy, 0f, cy);
+
+            return qy * qx * qz;
+        }
+
+        /// <summary>
+        /// Z-X-Y内旋, 接受弧度
+        /// </summary>
         public static Quaternion FromEulerAngles(float x, float y, float z)
         {
             float hz = z * 0.5f;

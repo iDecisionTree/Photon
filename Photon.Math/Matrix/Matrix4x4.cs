@@ -211,7 +211,7 @@ namespace Photon.Math.Matrix
             Matrix4x4 rx = CreateRotationX(x);
             Matrix4x4 ry = CreateRotationY(y);
 
-            return rz * rx * ry;
+            return ry * rx * rz;
         }
 
         public static Matrix4x4 CreateFromQuaternion(Quaternion q)
@@ -233,6 +233,31 @@ namespace Photon.Math.Matrix
                 2f * (xy + wz), 1f - 2f * (xx + zz), 2f * (yz - wx), 0f,
                 2f * (xz - wy), 2f * (yz + wx), 1f - 2f * (xx + yy), 0f,
                 0f, 0f, 0f, 1f
+            );
+        }
+
+        public static Matrix4x4 CreateLookAt(Vector3 position, Vector3 forward, Vector3 right, Vector3 up)
+        {
+            return new Matrix4x4(
+                right.x, right.y, right.z, -Vector3.Dot(right, position),
+                up.x, up.y, up.z, -Vector3.Dot(up, position),
+                forward.x, forward.y, forward.z, -Vector3.Dot(forward, position),
+                0f, 0f, 0f, 1f
+            );
+        }
+
+        public static Matrix4x4 CreatePerspectiveFieldOfView(float fov, float aspect, float near, float far)
+        {
+            float yScale = 1f / Mathf.Tan(fov * 0.5f);
+            float xScale = yScale / aspect;
+            float zScale = far / (far - near);
+            float zOffset = (-near * far) / (far - near);
+
+            return new Matrix4x4(
+                xScale, 0f, 0f, 0f,
+                0f, yScale, 0f, 0f,
+                0f, 0f, zScale, zOffset,
+                0f, 0f, 1f, 0f
             );
         }
 

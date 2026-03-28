@@ -5,6 +5,7 @@ namespace Photon.Core.Scene
     public class SceneObject
     {
         public string name { get; set; }
+        public bool isActive { get; set; }
         public Transform transform { get; private set; }
 
         private readonly Dictionary<Type, ComponentBase> _components;
@@ -12,6 +13,7 @@ namespace Photon.Core.Scene
         public SceneObject(string name = "SceneObject")
         {
             this.name = name;
+            isActive = true;
             _components = new Dictionary<Type, ComponentBase>();
             transform = AddComponent<Transform>();
         }

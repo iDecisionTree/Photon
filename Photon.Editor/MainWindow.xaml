@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
-    SizeChanged="Window_SizeChanged"
     Title="Photon.Editor">
 
     <Window.SystemBackdrop>
@@ -16,6 +15,6 @@
     </Window.SystemBackdrop>
 
     <Grid>
-        <canvas:CanvasControl x:Name="Layout" CreateResources="Layout_CreateResources" Draw="Layout_Draw"/>
+        <canvas:CanvasControl x:Name="Layout" Draw="Layout_Draw"/>
     </Grid>
 </Window>

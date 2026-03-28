@@ -1,4 +1,6 @@
-﻿using Photon.Math.Vector;
+﻿using Photon.Math;
+using Photon.Math.Vector;
+using System.Text;
 
 namespace Photon.Core.Texture
 {
@@ -47,9 +49,66 @@ namespace Photon.Core.Texture
             _isDisposed = false;
         }
 
+        public void Clear(Vector4 color)
+        {
+            if (_data == null)
+            {
+                throw new InvalidOperationException("纹理数据未初始化");
+            }
+
+            int bytesPerPixel = formatInfo.bytesPerPixel;
+            int pixelCount = width * height;
+
+            byte[] cache = new byte[bytesPerPixel];
+            formatInfo.Encode(cache, 0, color);
+
+            for (int i = 0; i < pixelCount; i++)
+            {
+                Buffer.BlockCopy(cache, 0, _data, i * bytesPerPixel, bytesPerPixel);
+            }
+        }
+
+        public void ConvertTo(TextureFormat format)
+        {
+            if (!TextureFormatHelper.TryGetFormatInfo(format, out TextureFormatInfo newFormatInfo))
+            {
+                throw new NotSupportedException($"不支持纹理格式{format}");
+            }
+            if (_data == null)
+            {
+                throw new InvalidOperationException("纹理数据未初始化");
+            }
+
+            if (this.format == format)
+            {
+                return;
+            }
+
+            byte[] newData = new byte[width * height * newFormatInfo.bytesPerPixel];
+            for (int i = 0; i < width * height; i++)
+            {
+                Vector4 color = formatInfo.Decode(_data, i);
+                newFormatInfo.Encode(newData, i, color);
+            }
+
+            _format = format;
+            _formatInfo = newFormatInfo;
+            _data = newData;
+        }
+
         public int GetByteLength()
         {
             return formatInfo.GetByteLength(width, height);
+        }
+
+        public byte[] GetData()
+        {
+            if (_data == null)
+            {
+                throw new InvalidOperationException("纹理数据未初始化");
+            }
+
+            return _data;
         }
 
         public Vector4 GetPixel(int x, int y)
@@ -65,6 +124,42 @@ namespace Photon.Core.Texture
 
             int pixelIndex = GetPixelIndex(x, y);
             return formatInfo.Decode(_data, pixelIndex);
+        }
+
+        public void Save(string filePath)
+        {
+            if (_data == null)
+            {
+                throw new InvalidOperationException("纹理数据未初始化");
+            }
+
+            byte[] rgb = new byte[width * height * 3];
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Vector4 color = GetPixel(x, y);
+                    int index = (y * width + x) * 3;
+
+                    rgb[index] = (byte)Mathf.Clamp(color.x * 255f, 0f, 255f);
+                    rgb[index + 1] = (byte)Mathf.Clamp(color.y * 255f, 0f, 255f);
+                    rgb[index + 2] = (byte)Mathf.Clamp(color.z * 255f, 0f, 255f);
+                }
+            }
+
+            using (FileStream fs = new FileStream(filePath, FileMode.Create))
+            {
+                string header = $"P6\n{width} {height}\n255\n";
+                byte[] headerBytes = Encoding.ASCII.GetBytes(header);
+
+                fs.Write(headerBytes, 0, headerBytes.Length);
+                fs.Write(rgb, 0, rgb.Length);
+            }
+        }
+
+        public void SetData(byte[] data)
+        {
+            _data = data;
         }
 
         public void SetPixel(int x, int y, Vector4 color)
@@ -90,6 +185,21 @@ namespace Photon.Core.Texture
         private bool IsValidPixel(int x, int y)
         {
             return x >= 0 && x < width && y >= 0 && y < height;
+        }
+
+        public static Texture2D ConvertTo(Texture2D source, TextureFormat format)
+        {
+            Texture2D newTexture = new Texture2D(source.width, source.height, format);
+            for (int y = 0; y < source.height; y++)
+            {
+                for (int x = 0; x < source.width; x++)
+                {
+                    Vector4 color = source.GetPixel(x, y);
+                    newTexture.SetPixel(x, y, color);
+                }
+            }
+
+            return newTexture;
         }
 
         public void Dispose()

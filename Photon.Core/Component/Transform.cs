@@ -56,6 +56,7 @@ namespace Photon.Core.Component
             position = Vector3.zero;
             rotation = Quaternion.identity;
             scale = Vector3.one;
+            _isDirty = true;
         }
 
         public Matrix4x4 worldMatrix => CalculateWorldMatrix();
@@ -72,6 +73,21 @@ namespace Photon.Core.Component
             }
 
             return _worldMatrix;
+        }
+
+        /// <summary>
+        /// Z-X-Y内旋, 接受角度
+        /// </summary>
+        public void Rotate(Vector3 eulerAngles)
+        {
+            eulerAngles *= Mathf.DEG2RAD;
+            Quaternion delta = Quaternion.FromEulerAngles(eulerAngles);
+            rotation = rotation * delta;
+        }
+
+        public void Translate(Vector3 translation)
+        {
+            position += translation;
         }
     }
 }

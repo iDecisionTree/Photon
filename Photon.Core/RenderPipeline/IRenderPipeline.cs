@@ -1,8 +1,12 @@
-﻿namespace Photon.Core.RenderPipeline
+﻿using Photon.Math.Vector;
+
+namespace Photon.Core.RenderPipeline
 {
     public interface IRenderPipeline
     {
-        public void Initialize(FrameBuffer frameBuffer);
+        public void Initialize(Vector2 viewportSize);
+        public void OnViewportResize(Vector2 newSize);
+        public void RenderFrame(RenderContext context);
         public void Dispose();
     }
 }

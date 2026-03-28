@@ -23,6 +23,16 @@ namespace Photon.Core.RenderPipeline
             _isDisposed = false;
         }
 
+        public void Clear(Vector4 color)
+        {
+            if (colorBuffer == null)
+            {
+                throw new InvalidOperationException("颜色缓冲区未初始化");
+            }
+
+            colorBuffer.Clear(color);
+        }
+
         public Vector4 GetColor(int x, int y)
         {
             if (colorBuffer == null)
