@@ -49,6 +49,7 @@ namespace Photon.Editor
 
             SceneObject cameraObj = new SceneObject("Camera");
             _camera = cameraObj.AddComponent<Camera>();
+            _camera.far = 1000f;
             cameraObj.transform.position = new Vector3(0f, 0f, -5f);
 
             _scene = new SceneManager();
@@ -74,6 +75,7 @@ namespace Photon.Editor
             _renderPipeline.RenderFrame(context);
 
             _renderTarget.SetPixelBytes(context.renderTarget?.GetData());
+            context.Dispose();
 
             args.DrawingSession.DrawImage(_renderTarget);
         }

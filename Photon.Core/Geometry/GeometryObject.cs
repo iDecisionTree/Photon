@@ -13,10 +13,12 @@ namespace Photon.Core.Geometry
         public Mesh? mesh { get; set; } = null;
         public Primitive primitive { get; set; }
         public Matrix4x4 worldMatrix { get; set; }
-        public Vector3[]? positionWS { get; set; } = null;
-        public Vector4[]? positionCS { get; set; } = null;
-        public Vector3[]? positionNDC { get; set; } = null;
-        public Vector2[]? positionSS { get; set; } = null;
+        public Dictionary<string, FragmentAttribute[]> attributes { get; set; }
+
+        public GeometryObject()
+        {
+            attributes = new Dictionary<string, FragmentAttribute[]>();
+        }
 
         public void Initialize()
         {
@@ -25,9 +27,14 @@ namespace Photon.Core.Geometry
                 return;
             }
 
-            positionCS = new Vector4[mesh.vertices.Count];
-            positionNDC = new Vector3[mesh.vertices.Count];
-            positionSS = new Vector2[mesh.vertices.Count];
+            attributes["positionOS"] = new FragmentAttribute[mesh.vertices.Count];
+            attributes["positionWS"] = new FragmentAttribute[mesh.vertices.Count];
+            attributes["positionCS"] = new FragmentAttribute[mesh.vertices.Count];
+            attributes["positionNDC"] = new FragmentAttribute[mesh.vertices.Count];
+            attributes["positionSS"] = new FragmentAttribute[mesh.vertices.Count];
+            attributes["normalOS"] = new FragmentAttribute[mesh.vertices.Count];
+            attributes["normalWS"] = new FragmentAttribute[mesh.vertices.Count];
+            attributes["depth"] = new FragmentAttribute[mesh.vertices.Count];
         }
     }
 }

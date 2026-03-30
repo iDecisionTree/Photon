@@ -12,12 +12,16 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Application
         private readonly InputAssemblerStage _inputAssemblerStage;
         private readonly VertexShaderStage _vertexShaderStage;
         private readonly RasterizationStage _rasterizationStage;
+        private readonly FragmentShaderStage _fragmentShaderStage;
+        private readonly OutputMergeStage _outputMergeStage;
 
         public RenderingStage()
         {
             _inputAssemblerStage = new InputAssemblerStage();
             _vertexShaderStage = new VertexShaderStage();
             _rasterizationStage = new RasterizationStage();
+            _fragmentShaderStage = new FragmentShaderStage();
+            _outputMergeStage = new OutputMergeStage();
         }
 
         public override void Initialize()
@@ -25,6 +29,8 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Application
             _inputAssemblerStage.Initialize();
             _vertexShaderStage.Initialize();
             _rasterizationStage.Initialize();
+            _fragmentShaderStage.Initialize();
+            _outputMergeStage.Initialize();
         }
 
         /// <summary>
@@ -40,6 +46,8 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Application
             _inputAssemblerStage.Execute(context);
             _vertexShaderStage.Execute(context);
             _rasterizationStage.Execute(context, frameBuffer);
+            _fragmentShaderStage.Execute(context);
+            _outputMergeStage.Execute(context, frameBuffer);
         }
 
         public override void Dispose()
@@ -47,6 +55,8 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Application
             _inputAssemblerStage.Dispose();
             _vertexShaderStage.Dispose();
             _rasterizationStage.Dispose();
+            _fragmentShaderStage.Dispose();
+            _outputMergeStage.Dispose();
             GC.SuppressFinalize(this);
         }
     }
