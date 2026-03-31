@@ -1,40 +1,37 @@
 ﻿using Photon.Core.Geometry;
 using Photon.Math.Vector;
+using System.Runtime.InteropServices;
 
+[StructLayout(LayoutKind.Explicit)]
 public readonly struct FragmentAttribute
 {
-    public readonly FragmentAttributeType type;
-    public readonly object value;
+    [FieldOffset(0)] public readonly FragmentAttributeType type;
+    [FieldOffset(4)] public readonly float floatValue;
+    [FieldOffset(4)] public readonly Vector2 vector2Value;
+    [FieldOffset(4)] public readonly Vector3 vector3Value;
+    [FieldOffset(4)] public readonly Vector4 vector4Value;
 
-    public FragmentAttribute(object value)
+    public FragmentAttribute(float value)
     {
-        if (value is float)
-        {
-            type = FragmentAttributeType.Float;
-        }
-        else if (value is Vector2)
-        {
-            type = FragmentAttributeType.Vector2;
-        }
-        else if (value is Vector3)
-        {
-            type = FragmentAttributeType.Vector3;
-        }
-        else if (value is Vector4)
-        {
-            type = FragmentAttributeType.Vector4;
-        }
-        else
-        {
-            throw new ArgumentException($"不支持的片元属性类型{value.GetType()}");
-        }
-
-        this.value = value;
+        type = FragmentAttributeType.Float;
+        floatValue = value;
     }
 
-    public FragmentAttribute(FragmentAttributeType type, object value)
+    public FragmentAttribute(Vector2 value)
     {
-        this.type = type;
-        this.value = value;
+        type = FragmentAttributeType.Vector2;
+        vector2Value = value;
+    }
+
+    public FragmentAttribute(Vector3 value)
+    {
+        type = FragmentAttributeType.Vector3;
+        vector3Value = value;
+    }
+
+    public FragmentAttribute(Vector4 value)
+    {
+        type = FragmentAttributeType.Vector4;
+        vector4Value = value;
     }
 }

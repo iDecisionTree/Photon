@@ -52,14 +52,14 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
         private void RasterizeTriangle(RenderContext context, Dictionary<string, (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c)> attributes)
         {
             (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c) positionCS = attributes["positionCS"];
-            Vector4 positionCS0 = (Vector4)positionCS.a.value;
-            Vector4 positionCS1 = (Vector4)positionCS.b.value;
-            Vector4 positionCS2 = (Vector4)positionCS.c.value;
+            Vector4 positionCS0 = positionCS.a.vector4Value;
+            Vector4 positionCS1 = positionCS.b.vector4Value;
+            Vector4 positionCS2 = positionCS.c.vector4Value;
 
             (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c) positionSS = attributes["positionSS"];
-            Vector2 positionSS0 = (Vector2)positionSS.a.value;
-            Vector2 positionSS1 = (Vector2)positionSS.b.value;
-            Vector2 positionSS2 = (Vector2)positionSS.c.value;
+            Vector2 positionSS0 = positionSS.a.vector2Value;
+            Vector2 positionSS1 = positionSS.b.vector2Value;
+            Vector2 positionSS2 = positionSS.c.vector2Value;
 
             Vector2 edge1 = positionSS1 - positionSS0;
             Vector2 edge2 = positionSS2 - positionSS0;
@@ -88,13 +88,18 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                     float invW0 = 1f / positionCS0.w;
                     float invW1 = 1f / positionCS1.w;
                     float invW2 = 1f / positionCS2.w;
-                    float perspectiveDenom = 1f / (alpha * invW0 + beta * invW1 + gamma * invW2);
 
-                    Dictionary<string, FragmentAttribute> interpolatedAttributes = new Dictionary<string, FragmentAttribute>(16);
+                    float alphaInvW0 = alpha * invW0;
+                    float beteInvW1 = beta * invW1;
+                    float gammaInvW2 = gamma * invW2;
+
+                    float perspectiveDenom = 1f / (alphaInvW0 + beteInvW1 + gammaInvW2);
+
+                    Dictionary<string, FragmentAttribute> interpolatedAttributes = new Dictionary<string, FragmentAttribute>();
 
                     foreach (KeyValuePair<string, (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c)> kvp in attributes)
                     {
-                        FragmentAttribute interpolated = Interpolate(kvp.Value.a, kvp.Value.b, kvp.Value.c, alpha, beta, gamma, invW0, invW1, invW2, perspectiveDenom);
+                        FragmentAttribute interpolated = Interpolate(kvp.Value.a, kvp.Value.b, kvp.Value.c, alphaInvW0, beteInvW1, gammaInvW2, perspectiveDenom);
                         interpolatedAttributes.Add(kvp.Key, interpolated);
                     }
 
@@ -129,7 +134,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             return (alpha, beta, gamma);
         }
 
-        private FragmentAttribute Interpolate(FragmentAttribute a, FragmentAttribute b, FragmentAttribute c, float alpha, float beta, float gamma, float invW0, float invW1, float invW2, float perspectiveDenom)
+        private FragmentAttribute Interpolate(FragmentAttribute a, FragmentAttribute b, FragmentAttribute c, float alphaInvW0, float betaInvW1, float gammaInvW2, float perspectiveDenom)
         {
             if (a.type != b.type || a.type != c.type)
             {
@@ -139,13 +144,13 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             switch (a.type)
             {
                 case FragmentAttributeType.Float:
-                    return new FragmentAttribute(FragmentAttributeType.Float, ((float)a.value * alpha * invW0 + (float)b.value * beta * invW1 + (float)c.value * gamma * invW2) * perspectiveDenom);
+                    return new FragmentAttribute((a.floatValue * alphaInvW0 + b.floatValue * betaInvW1 + c.floatValue * gammaInvW2) * perspectiveDenom);
                 case FragmentAttributeType.Vector2:
-                    return new FragmentAttribute(FragmentAttributeType.Vector2, ((Vector2)a.value * alpha * invW0 + (Vector2)b.value * beta * invW1 + (Vector2)c.value * gamma * invW2) * perspectiveDenom);
+                    return new FragmentAttribute((a.vector2Value * alphaInvW0 + b.vector2Value * betaInvW1 + c.vector2Value * gammaInvW2) * perspectiveDenom);
                 case FragmentAttributeType.Vector3:                             
-                    return new FragmentAttribute(FragmentAttributeType.Vector3, ((Vector3)a.value * alpha * invW0 + (Vector3)b.value * beta * invW1 + (Vector3)c.value * gamma * invW2) * perspectiveDenom);
+                    return new FragmentAttribute((a.vector3Value * alphaInvW0 + b.vector3Value * betaInvW1 + c.vector3Value * gammaInvW2) * perspectiveDenom);
                 case FragmentAttributeType.Vector4:                             
-                    return new FragmentAttribute(FragmentAttributeType.Vector4, ((Vector4)a.value * alpha * invW0 + (Vector4)b.value * beta * invW1 + (Vector4)c.value * gamma * invW2) * perspectiveDenom);
+                    return new FragmentAttribute((a.vector4Value * alphaInvW0 + b.vector4Value * betaInvW1 + c.vector4Value * gammaInvW2) * perspectiveDenom);
                 default:
                     throw new InvalidOperationException("不支持的片元属性类型");
             }

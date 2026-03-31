@@ -16,5 +16,6 @@
 
     <Grid>
         <canvas:CanvasControl x:Name="Layout" Draw="Layout_Draw"/>
+        <TextBlock x:Name="FpsText" Text="FPS: --" FontSize="16" FontWeight="SemiBold" Foreground="White" Margin="12" VerticalAlignment="Top" HorizontalAlignment="Left"/>
     </Grid>
 </Window>

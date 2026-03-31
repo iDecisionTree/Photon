@@ -32,7 +32,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                 int pixelX = (int)Mathf.Floor(fragment.positionSS.x);
                 int pixelY = (int)Mathf.Floor(fragment.positionSS.y);
 
-                float depth = (float)fragment.attributes["depth"].value;
+                float depth = fragment.attributes["depth"].floatValue;
 
                 if (depth > frameBuffer.GetDepth(pixelX, pixelY))
                 {

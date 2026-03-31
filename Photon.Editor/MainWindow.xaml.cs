@@ -13,6 +13,7 @@ using Photon.Math.Matrix;
 using Photon.Math.Vector;
 using System;
 using Windows.Foundation;
+using Windows.Graphics.DirectX;
 
 namespace Photon.Editor
 {
@@ -27,6 +28,10 @@ namespace Photon.Editor
         private SceneObject _cube;
         private Camera _camera;
         private SceneManager _scene;
+
+        private double _fps;
+        private int _frameCount;
+        private DateTime _lastTime;
 
         public MainWindow()
         {
@@ -59,13 +64,20 @@ namespace Photon.Editor
 
         private void Layout_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
+            CalculateFps(sender);
+
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                FpsText.Text = $"FPS: {_fps:F1}";
+            });
+
             int currentWidth = (int)Mathf.Max(1f, (float)Layout.Size.Width);
             int currentHeight = (int)Mathf.Max(1f, (float)Layout.Size.Height);
 
             if (_renderTarget == null || _renderTarget.SizeInPixels.Width != currentWidth || _renderTarget.SizeInPixels.Height != currentHeight)
             {
                 _renderTarget?.Dispose();
-                _renderTarget = new CanvasRenderTarget(Layout, currentWidth, currentHeight, 96f);
+                _renderTarget = new CanvasRenderTarget(Layout, currentWidth, currentHeight, 96f, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
                 _renderPipeline.OnViewportResize(new Vector2(currentWidth, currentHeight));
             }
 
@@ -84,8 +96,22 @@ namespace Photon.Editor
         {
             if (Layout != null)
             {
-                _cube.transform.Rotate(new Vector3(1f, 1f, 1f));
+                _cube.transform.Rotate(new Vector3(5f, 5f, 5f));
                 Layout.Invalidate();
+            }
+        }
+
+        private void CalculateFps(CanvasControl canvas)
+        {
+            _frameCount++;
+            DateTime now = DateTime.Now;
+            TimeSpan elapsed = now - _lastTime;
+
+            if (elapsed >= TimeSpan.FromSeconds(0.25))
+            {
+                _fps = _frameCount / elapsed.TotalSeconds;
+                _frameCount = 0;
+                _lastTime = now;
             }
         }
     }

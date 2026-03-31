@@ -21,7 +21,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             {
                 Fragment fragment = context.fragments[i];
 
-                Vector3 positionOS = (Vector3)fragment.attributes["positionOS"].value;
+                Vector3 positionOS = fragment.attributes["positionOS"].vector3Value;
                 fragment.color = new Vector4(positionOS, 1f);
 
                 context.fragments[i] = fragment;

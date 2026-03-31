@@ -35,14 +35,14 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
 
                     float depth = positionNDC.z;
 
-                    context.geometryObjects[i].attributes["positionOS"][j] = new FragmentAttribute(FragmentAttributeType.Vector3, positionOS);
-                    context.geometryObjects[i].attributes["positionWS"][j] = new FragmentAttribute(FragmentAttributeType.Vector3, positionWS);
-                    context.geometryObjects[i].attributes["positionCS"][j] = new FragmentAttribute(FragmentAttributeType.Vector4, positionCS);
-                    context.geometryObjects[i].attributes["positionNDC"][j] = new FragmentAttribute(FragmentAttributeType.Vector3, positionNDC);
-                    context.geometryObjects[i].attributes["positionSS"][j] = new FragmentAttribute(FragmentAttributeType.Vector2, positionSS);
-                    context.geometryObjects[i].attributes["normalOS"][j] = new FragmentAttribute(FragmentAttributeType.Vector3, normalOS);
-                    context.geometryObjects[i].attributes["normalWS"][j] = new FragmentAttribute(FragmentAttributeType.Vector3, normalWS);
-                    context.geometryObjects[i].attributes["depth"][j] = new FragmentAttribute(FragmentAttributeType.Float, depth);
+                    context.geometryObjects[i].attributes["positionOS"][j] = new FragmentAttribute(positionOS);
+                    context.geometryObjects[i].attributes["positionWS"][j] = new FragmentAttribute(positionWS);
+                    context.geometryObjects[i].attributes["positionCS"][j] = new FragmentAttribute(positionCS);
+                    context.geometryObjects[i].attributes["positionNDC"][j] = new FragmentAttribute(positionNDC);
+                    context.geometryObjects[i].attributes["positionSS"][j] = new FragmentAttribute(positionSS);
+                    context.geometryObjects[i].attributes["normalOS"][j] = new FragmentAttribute(normalOS);
+                    context.geometryObjects[i].attributes["normalWS"][j] = new FragmentAttribute(normalWS);
+                    context.geometryObjects[i].attributes["depth"][j] = new FragmentAttribute(depth);
                 }
             }
         }
