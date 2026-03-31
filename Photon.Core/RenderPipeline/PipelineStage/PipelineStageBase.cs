@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Photon.Core.RenderPipeline.PipelineStage
+﻿namespace Photon.Core.RenderPipeline.PipelineStage
 {
     public abstract class PipelineStageBase : IDisposable
     {

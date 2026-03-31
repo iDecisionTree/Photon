@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\14779\\Desktop\\C#\\Photon\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.core\\renderpipeline\\pipelinestage\\device\\outputmergestage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|solutionrelative:photon.core\\renderpipeline\\pipelinestage\\device\\outputmergestage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D59C8ABD-4D9D-2E1B-F129-8995D59976E5}|Photon.Editor\\Photon.Editor.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.editor\\properties\\publishprofiles\\folderprofile.pubxml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{D59C8ABD-4D9D-2E1B-F129-8995D59976E5}|Photon.Editor\\Photon.Editor.csproj|solutionrelative:photon.editor\\properties\\publishprofiles\\folderprofile.pubxml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D59C8ABD-4D9D-2E1B-F129-8995D59976E5}|Photon.Editor\\Photon.Editor.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.editor\\photon.editor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D59C8ABD-4D9D-2E1B-F129-8995D59976E5}|Photon.Editor\\Photon.Editor.csproj|solutionrelative:photon.editor\\photon.editor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.core\\renderpipeline\\pipelinestage\\device\\vertexshaderstage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|solutionrelative:photon.core\\renderpipeline\\pipelinestage\\device\\vertexshaderstage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.core\\geometry\\fragmentattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|solutionrelative:photon.core\\geometry\\fragmentattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.core\\renderpipeline\\pipelinestage\\device\\fragmentshaderstage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.core\\renderpipeline\\pipelinestage\\device\\rasterizationstage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|solutionrelative:photon.core\\renderpipeline\\pipelinestage\\device\\rasterizationstage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.core\\geometry\\fragmentattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|solutionrelative:photon.core\\geometry\\fragmentattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.core\\renderpipeline\\pipelinestage\\application\\presentationstage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -171,9 +175,6 @@
       "RelativeMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|solutionrelative:photon.core\\scene\\sceneobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D59C8ABD-4D9D-2E1B-F129-8995D59976E5}|Photon.Editor\\Photon.Editor.csproj|c:\\users\\14779\\.nuget\\packages\\microsoft.windowsappsdk.foundation\\1.8.260203002\\include\\mddbootstrapautoinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.core\\photon.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|solutionrelative:photon.core\\photon.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -202,10 +203,6 @@
       "RelativeMoniker": "D:0:0:{83EC54D6-C62B-4984-B6CE-BADBA88D0C4F}|Photon.Core\\Photon.Core.csproj|solutionrelative:photon.core\\texture\\texture_r8g8b8a8_unorm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D59C8ABD-4D9D-2E1B-F129-8995D59976E5}|Photon.Editor\\Photon.Editor.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.editor\\photon.editor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{D59C8ABD-4D9D-2E1B-F129-8995D59976E5}|Photon.Editor\\Photon.Editor.csproj|solutionrelative:photon.editor\\photon.editor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A4C124AA-BA9C-4C97-AF70-03536AA6BA63}|Photon.Math\\Photon.Math.csproj|c:\\users\\14779\\desktop\\c#\\photon\\photon.math\\photon.math.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{A4C124AA-BA9C-4C97-AF70-03536AA6BA63}|Photon.Math\\Photon.Math.csproj|solutionrelative:photon.math\\photon.math.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -221,7 +218,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -233,98 +230,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "FolderProfile.pubxml",
+              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\Properties\\PublishProfiles\\FolderProfile.pubxml",
+              "RelativeDocumentMoniker": "Photon.Editor\\Properties\\PublishProfiles\\FolderProfile.pubxml",
+              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\Properties\\PublishProfiles\\FolderProfile.pubxml",
+              "RelativeToolTip": "Photon.Editor\\Properties\\PublishProfiles\\FolderProfile.pubxml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-03-31T02:27:51.096Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "VertexShaderStage.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\VertexShaderStage.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\VertexShaderStage.cs",
               "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\VertexShaderStage.cs",
               "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\VertexShaderStage.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAArwCUAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAIwB8AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-28T06:17:34.513Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Fragment.cs",
-              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\Fragment.cs",
-              "RelativeDocumentMoniker": "Photon.Core\\Geometry\\Fragment.cs",
-              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\Fragment.cs",
-              "RelativeToolTip": "Photon.Core\\Geometry\\Fragment.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T09:02:38.064Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "OutputMergeStage.cs",
-              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\OutputMergeStage.cs",
-              "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\OutputMergeStage.cs",
-              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\OutputMergeStage.cs",
-              "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\OutputMergeStage.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAArwCEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T10:45:42.744Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PresentationStage.cs",
-              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PresentationStage.cs",
-              "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PresentationStage.cs",
-              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PresentationStage.cs",
-              "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PresentationStage.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T05:27:29.188Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "FragmentAttribute.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\FragmentAttribute.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Geometry\\FragmentAttribute.cs",
               "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\FragmentAttribute.cs",
               "RelativeToolTip": "Photon.Core\\Geometry\\FragmentAttribute.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAgwAwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-29T15:46:20.181Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RasterizationStage.cs",
-              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\RasterizationStage.cs",
-              "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\RasterizationStage.cs",
-              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\RasterizationStage.cs",
-              "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\RasterizationStage.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAmwD0AAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T07:11:23.526Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FragmentShaderStage.cs",
-              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\FragmentShaderStage.cs",
-              "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\FragmentShaderStage.cs",
-              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\FragmentShaderStage.cs",
-              "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\FragmentShaderStage.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAA8wBcAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T10:36:12.126Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "PipelineStageBase.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\PipelineStageBase.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\PipelineStageBase.cs",
@@ -337,7 +282,72 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
+              "Title": "Photon.Editor.csproj",
+              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\Photon.Editor.csproj",
+              "RelativeDocumentMoniker": "Photon.Editor\\Photon.Editor.csproj",
+              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\Photon.Editor.csproj",
+              "RelativeToolTip": "Photon.Editor\\Photon.Editor.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-23T10:40:28.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FragmentShaderStage.cs",
+              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\FragmentShaderStage.cs",
+              "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\FragmentShaderStage.cs",
+              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\FragmentShaderStage.cs",
+              "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\FragmentShaderStage.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA8wBcAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T10:36:12.126Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RasterizationStage.cs",
+              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\RasterizationStage.cs",
+              "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\RasterizationStage.cs",
+              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\RasterizationStage.cs",
+              "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\RasterizationStage.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAmwD0AAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T07:11:23.526Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PresentationStage.cs",
+              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PresentationStage.cs",
+              "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PresentationStage.cs",
+              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PresentationStage.cs",
+              "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PresentationStage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T05:27:29.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Fragment.cs",
+              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\Fragment.cs",
+              "RelativeDocumentMoniker": "Photon.Core\\Geometry\\Fragment.cs",
+              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\Fragment.cs",
+              "RelativeToolTip": "Photon.Core\\Geometry\\Fragment.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T09:02:38.064Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Photon.Editor\\MainWindow.xaml.cs",
@@ -350,7 +360,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Texture_D24_UNorm.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Texture\\Texture_D24_UNorm.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Texture\\Texture_D24_UNorm.cs",
@@ -358,12 +368,11 @@
               "RelativeToolTip": "Photon.Core\\Texture\\Texture_D24_UNorm.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAA0wAUAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-24T05:30:56.412Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-24T05:30:56.412Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Photon.Editor\\MainWindow.xaml",
@@ -371,12 +380,11 @@
               "RelativeToolTip": "Photon.Editor\\MainWindow.xaml",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-23T08:36:44.251Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-23T08:36:44.251Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Texture_B8G8R8A8_UNorm.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Texture\\Texture_B8G8R8A8_UNorm.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Texture\\Texture_B8G8R8A8_UNorm.cs",
@@ -384,12 +392,11 @@
               "RelativeToolTip": "Photon.Core\\Texture\\Texture_B8G8R8A8_UNorm.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAewBwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T05:33:36.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-28T05:33:36.507Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "MeshPrimitive.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\MeshPrimitive.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Geometry\\MeshPrimitive.cs",
@@ -402,7 +409,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Matrix4x4.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Math\\Matrix\\Matrix4x4.cs",
               "RelativeDocumentMoniker": "Photon.Math\\Matrix\\Matrix4x4.cs",
@@ -410,12 +417,11 @@
               "RelativeToolTip": "Photon.Math\\Matrix\\Matrix4x4.cs",
               "ViewState": "AgIAAHcBAAAAAAAAAAAmwIQBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-24T16:23:54.52Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-24T16:23:54.52Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "Vector3.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Math\\Vector\\Vector3.cs",
               "RelativeDocumentMoniker": "Photon.Math\\Vector\\Vector3.cs",
@@ -427,7 +433,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "GeometryObject.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\GeometryObject.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Geometry\\GeometryObject.cs",
@@ -435,11 +441,12 @@
               "RelativeToolTip": "Photon.Core\\Geometry\\GeometryObject.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAMwB4AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T06:33:47.584Z"
+              "WhenOpened": "2026-03-28T06:33:47.584Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Vector4.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Math\\Vector\\Vector4.cs",
               "RelativeDocumentMoniker": "Photon.Math\\Vector\\Vector4.cs",
@@ -451,7 +458,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "ComponentBase.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Component\\ComponentBase.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Component\\ComponentBase.cs",
@@ -463,7 +470,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "FragmentAttributeType.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\FragmentAttributeType.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Geometry\\FragmentAttributeType.cs",
@@ -471,11 +478,12 @@
               "RelativeToolTip": "Photon.Core\\Geometry\\FragmentAttributeType.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAADwvw0AAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-30T13:07:49.767Z"
+              "WhenOpened": "2026-03-30T13:07:49.767Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "RenderingStage.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Application\\RenderingStage.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\RenderingStage.cs",
@@ -483,11 +491,12 @@
               "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\RenderingStage.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAAuwDoAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T16:40:51.471Z"
+              "WhenOpened": "2026-03-27T16:40:51.471Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "ForwardRenderPipeline.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\Forward\\ForwardRenderPipeline.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\Forward\\ForwardRenderPipeline.cs",
@@ -495,11 +504,12 @@
               "RelativeToolTip": "Photon.Core\\RenderPipeline\\Forward\\ForwardRenderPipeline.cs",
               "ViewState": "AgIAACEAAAAAAAAAAAAWwC4AAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T16:01:45.391Z"
+              "WhenOpened": "2026-03-27T16:01:45.391Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Mesh.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\Mesh.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Geometry\\Mesh.cs",
@@ -511,7 +521,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "Primitive.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\Primitive.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Geometry\\Primitive.cs",
@@ -519,11 +529,12 @@
               "RelativeToolTip": "Photon.Core\\Geometry\\Primitive.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T06:10:57.948Z"
+              "WhenOpened": "2026-03-28T06:10:57.948Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "InputAssemblerStage.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Device\\InputAssemblerStage.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\InputAssemblerStage.cs",
@@ -531,11 +542,12 @@
               "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Device\\InputAssemblerStage.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAADwvxQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T16:15:10.863Z"
+              "WhenOpened": "2026-03-27T16:15:10.863Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "ClearingStage.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Application\\ClearingStage.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\ClearingStage.cs",
@@ -543,11 +555,12 @@
               "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\ClearingStage.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAArwCAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T16:35:28.859Z"
+              "WhenOpened": "2026-03-27T16:35:28.859Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "PreparationStage.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PreparationStage.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PreparationStage.cs",
@@ -555,11 +568,12 @@
               "RelativeToolTip": "Photon.Core\\RenderPipeline\\PipelineStage\\Application\\PreparationStage.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T16:15:34.44Z"
+              "WhenOpened": "2026-03-27T16:15:34.44Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "Matrix3x3.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Math\\Matrix\\Matrix3x3.cs",
               "RelativeDocumentMoniker": "Photon.Math\\Matrix\\Matrix3x3.cs",
@@ -571,7 +585,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "FrameBuffer.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\FrameBuffer.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\FrameBuffer.cs",
@@ -583,7 +597,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "Texture2D.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Texture\\Texture2D.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Texture\\Texture2D.cs",
@@ -591,12 +605,11 @@
               "RelativeToolTip": "Photon.Core\\Texture\\Texture2D.cs",
               "ViewState": "AgIAAKcAAAAAAAAAAAAswMoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-23T13:47:54.761Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-23T13:47:54.761Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "Texture_R11G11B10_UFloat.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Texture\\Texture_R11G11B10_UFloat.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Texture\\Texture_R11G11B10_UFloat.cs",
@@ -608,7 +621,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "SceneManager.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Scene\\SceneManager.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Scene\\SceneManager.cs",
@@ -616,11 +629,12 @@
               "RelativeToolTip": "Photon.Core\\Scene\\SceneManager.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAxwAoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T15:21:50.955Z"
+              "WhenOpened": "2026-03-27T15:21:50.955Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "Quaternion.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Math\\Quaternion.cs",
               "RelativeDocumentMoniker": "Photon.Math\\Quaternion.cs",
@@ -632,7 +646,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "Transform.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Component\\Transform.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Component\\Transform.cs",
@@ -644,7 +658,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "IRenderPipeline.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\IRenderPipeline.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\IRenderPipeline.cs",
@@ -656,7 +670,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "RenderPipelineBase.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\RenderPipeline\\RenderPipelineBase.cs",
               "RelativeDocumentMoniker": "Photon.Core\\RenderPipeline\\RenderPipelineBase.cs",
@@ -668,7 +682,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "TextureFormatHelper.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Texture\\TextureFormatHelper.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Texture\\TextureFormatHelper.cs",
@@ -680,7 +694,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "TextureFormat.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Texture\\TextureFormat.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Texture\\TextureFormat.cs",
@@ -692,7 +706,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "TextureFormatInfo.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Texture\\TextureFormatInfo.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Texture\\TextureFormatInfo.cs",
@@ -704,7 +718,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "Texture_RGBA32_Float.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Texture\\Texture_RGBA32_Float.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Texture\\Texture_RGBA32_Float.cs",
@@ -716,7 +730,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "Camera.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Component\\Camera.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Component\\Camera.cs",
@@ -724,11 +738,12 @@
               "RelativeToolTip": "Photon.Core\\Component\\Camera.cs",
               "ViewState": "AgIAAFcAAAAAAAAAAAAewGEAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T15:24:26.319Z"
+              "WhenOpened": "2026-03-27T15:24:26.319Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "Vertex.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Geometry\\Vertex.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Geometry\\Vertex.cs",
@@ -736,11 +751,12 @@
               "RelativeToolTip": "Photon.Core\\Geometry\\Vertex.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAADwvw4AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T16:42:28.647Z"
+              "WhenOpened": "2026-03-27T16:42:28.647Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "SceneObject.cs",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Scene\\SceneObject.cs",
               "RelativeDocumentMoniker": "Photon.Core\\Scene\\SceneObject.cs",
@@ -752,18 +768,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "MddBootstrapAutoInitializer.cs",
-              "DocumentMoniker": "C:\\Users\\14779\\.nuget\\packages\\microsoft.windowsappsdk.foundation\\1.8.260203002\\include\\MddBootstrapAutoInitializer.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\.nuget\\packages\\microsoft.windowsappsdk.foundation\\1.8.260203002\\include\\MddBootstrapAutoInitializer.cs",
-              "ToolTip": "C:\\Users\\14779\\.nuget\\packages\\microsoft.windowsappsdk.foundation\\1.8.260203002\\include\\MddBootstrapAutoInitializer.cs",
-              "RelativeToolTip": "..\\..\\..\\.nuget\\packages\\microsoft.windowsappsdk.foundation\\1.8.260203002\\include\\MddBootstrapAutoInitializer.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T05:29:43.161Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 43,
               "Title": "Photon.Core.csproj",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Core\\Photon.Core.csproj",
@@ -772,7 +776,8 @@
               "RelativeToolTip": "Photon.Core\\Photon.Core.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-03-23T16:03:39.453Z"
+              "WhenOpened": "2026-03-23T16:03:39.453Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -849,18 +854,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 50,
-              "Title": "Photon.Editor.csproj",
-              "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\Photon.Editor.csproj",
-              "RelativeDocumentMoniker": "Photon.Editor\\Photon.Editor.csproj",
-              "ToolTip": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\Photon.Editor.csproj",
-              "RelativeToolTip": "Photon.Editor\\Photon.Editor.csproj",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-03-23T10:40:28.507Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
               "Title": "Photon.Math.csproj",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Math\\Photon.Math.csproj",
               "RelativeDocumentMoniker": "Photon.Math\\Photon.Math.csproj",
@@ -868,11 +861,12 @@
               "RelativeToolTip": "Photon.Math\\Photon.Math.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-03-23T13:27:01.532Z"
+              "WhenOpened": "2026-03-23T13:27:01.532Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 51,
               "Title": "app.manifest",
               "DocumentMoniker": "C:\\Users\\14779\\Desktop\\C#\\Photon\\Photon.Editor\\app.manifest",
               "RelativeDocumentMoniker": "Photon.Editor\\app.manifest",

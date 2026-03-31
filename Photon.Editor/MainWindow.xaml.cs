@@ -1,18 +1,14 @@
 using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.UI.Xaml;
 using Photon.Core.Component;
 using Photon.Core.Geometry;
-using Photon.Core.Geometry.Importer;
 using Photon.Core.RenderPipeline;
 using Photon.Core.RenderPipeline.Forward;
 using Photon.Core.Scene;
 using Photon.Math;
-using Photon.Math.Matrix;
 using Photon.Math.Vector;
 using System;
-using Windows.Foundation;
 using Windows.Graphics.DirectX;
 
 namespace Photon.Editor

@@ -1,5 +1,4 @@
 ﻿using Photon.Math.Vector;
-using System.Collections.Generic;
 
 namespace Photon.Core.Geometry
 {

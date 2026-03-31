@@ -1,15 +1,6 @@
 ﻿using Photon.Core.Geometry;
 using Photon.Math;
-using Photon.Math.Vector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using Vector2 = Photon.Math.Vector.Vector2;
-using Vector3 = Photon.Math.Vector.Vector3;
 using Vector4 = Photon.Math.Vector.Vector4;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Device
@@ -147,9 +138,9 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                     return new FragmentAttribute((a.floatValue * alphaInvW0 + b.floatValue * betaInvW1 + c.floatValue * gammaInvW2) * perspectiveDenom);
                 case FragmentAttributeType.Vector2:
                     return new FragmentAttribute((a.vector2Value * alphaInvW0 + b.vector2Value * betaInvW1 + c.vector2Value * gammaInvW2) * perspectiveDenom);
-                case FragmentAttributeType.Vector3:                             
+                case FragmentAttributeType.Vector3:
                     return new FragmentAttribute((a.vector3Value * alphaInvW0 + b.vector3Value * betaInvW1 + c.vector3Value * gammaInvW2) * perspectiveDenom);
-                case FragmentAttributeType.Vector4:                             
+                case FragmentAttributeType.Vector4:
                     return new FragmentAttribute((a.vector4Value * alphaInvW0 + b.vector4Value * betaInvW1 + c.vector4Value * gammaInvW2) * perspectiveDenom);
                 default:
                     throw new InvalidOperationException("不支持的片元属性类型");

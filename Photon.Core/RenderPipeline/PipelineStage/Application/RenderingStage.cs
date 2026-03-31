@@ -1,9 +1,4 @@
 ﻿using Photon.Core.RenderPipeline.PipelineStage.Device;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Application
 {
@@ -25,7 +20,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Application
         }
 
         public override void Initialize()
-        {      
+        {
             _inputAssemblerStage.Initialize();
             _vertexShaderStage.Initialize();
             _rasterizationStage.Initialize();

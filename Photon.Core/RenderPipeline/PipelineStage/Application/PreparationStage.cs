@@ -1,11 +1,5 @@
 ﻿using Photon.Core.Component;
 using Photon.Core.Geometry;
-using Photon.Math.Matrix;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Application
 {
