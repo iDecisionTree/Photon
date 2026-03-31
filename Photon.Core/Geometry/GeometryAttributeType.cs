@@ -1,6 +1,6 @@
 ﻿namespace Photon.Core.Geometry
 {
-    public enum FragmentAttributeType
+    public enum GeometryAttributeType
     {
         Float,
         Vector2,

@@ -3,35 +3,35 @@ using Photon.Math.Vector;
 using System.Runtime.InteropServices;
 
 [StructLayout(LayoutKind.Explicit)]
-public readonly struct FragmentAttribute
+public readonly struct GeometryAttribute
 {
-    [FieldOffset(0)] public readonly FragmentAttributeType type;
+    [FieldOffset(0)] public readonly GeometryAttributeType type;
     [FieldOffset(4)] public readonly float floatValue;
     [FieldOffset(4)] public readonly Vector2 vector2Value;
     [FieldOffset(4)] public readonly Vector3 vector3Value;
     [FieldOffset(4)] public readonly Vector4 vector4Value;
 
-    public FragmentAttribute(float value)
+    public GeometryAttribute(float value)
     {
-        type = FragmentAttributeType.Float;
+        type = GeometryAttributeType.Float;
         floatValue = value;
     }
 
-    public FragmentAttribute(Vector2 value)
+    public GeometryAttribute(Vector2 value)
     {
-        type = FragmentAttributeType.Vector2;
+        type = GeometryAttributeType.Vector2;
         vector2Value = value;
     }
 
-    public FragmentAttribute(Vector3 value)
+    public GeometryAttribute(Vector3 value)
     {
-        type = FragmentAttributeType.Vector3;
+        type = GeometryAttributeType.Vector3;
         vector3Value = value;
     }
 
-    public FragmentAttribute(Vector4 value)
+    public GeometryAttribute(Vector4 value)
     {
-        type = FragmentAttributeType.Vector4;
+        type = GeometryAttributeType.Vector4;
         vector4Value = value;
     }
 }

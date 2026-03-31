@@ -1,4 +1,5 @@
-﻿using Photon.Math.Matrix;
+﻿using Photon.Core.Geometry.Vertex;
+using Photon.Math.Matrix;
 
 namespace Photon.Core.Geometry
 {
@@ -7,11 +8,12 @@ namespace Photon.Core.Geometry
         public Mesh? mesh { get; set; } = null;
         public Primitive primitive { get; set; }
         public Matrix4x4 worldMatrix { get; set; }
-        public Dictionary<string, FragmentAttribute[]> attributes { get; set; }
+        public Dictionary<string, int> propertyIndexMap { get; set; }
+        public GeometryAttribute[][]? attributes { get; set; } = null;
 
         public GeometryObject()
         {
-            attributes = new Dictionary<string, FragmentAttribute[]>();
+            propertyIndexMap = new Dictionary<string, int>();
         }
 
         public void Initialize()
@@ -21,14 +23,30 @@ namespace Photon.Core.Geometry
                 return;
             }
 
-            attributes["positionOS"] = new FragmentAttribute[mesh.vertices.Count];
-            attributes["positionWS"] = new FragmentAttribute[mesh.vertices.Count];
-            attributes["positionCS"] = new FragmentAttribute[mesh.vertices.Count];
-            attributes["positionNDC"] = new FragmentAttribute[mesh.vertices.Count];
-            attributes["positionSS"] = new FragmentAttribute[mesh.vertices.Count];
-            attributes["normalOS"] = new FragmentAttribute[mesh.vertices.Count];
-            attributes["normalWS"] = new FragmentAttribute[mesh.vertices.Count];
-            attributes["depth"] = new FragmentAttribute[mesh.vertices.Count];
+            int currentIndex = 0;
+            List<GeometryAttribute[]> attributeList = new List<GeometryAttribute[]>();
+            foreach (BuildinGeometryAttributeType type in Enum.GetValues<BuildinGeometryAttributeType>())
+            {
+                if (type == BuildinGeometryAttributeType.count)
+                {
+                    continue;
+                }
+
+                string name = Enum.GetName(type) ?? type.ToString();
+                propertyIndexMap.TryAdd(name, currentIndex++);
+
+                attributeList.Add(new GeometryAttribute[mesh.vertices.Count]);
+            }
+            foreach (KeyValuePair<string, GeometryAttribute[]> kvp in mesh.vertexAttributes)
+            {
+                if (propertyIndexMap.TryAdd(kvp.Key, currentIndex))
+                {
+                    currentIndex++;
+                    attributeList.Add(kvp.Value);
+                }
+            }
+
+            attributes = attributeList.ToArray();
         }
     }
 }

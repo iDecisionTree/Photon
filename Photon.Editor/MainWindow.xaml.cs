@@ -103,7 +103,7 @@ namespace Photon.Editor
             DateTime now = DateTime.Now;
             TimeSpan elapsed = now - _lastTime;
 
-            if (elapsed >= TimeSpan.FromSeconds(0.25))
+            if (elapsed >= TimeSpan.FromSeconds(0.5))
             {
                 _fps = _frameCount / elapsed.TotalSeconds;
                 _frameCount = 0;

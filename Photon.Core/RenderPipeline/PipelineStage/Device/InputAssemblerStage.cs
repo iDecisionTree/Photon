@@ -1,4 +1,5 @@
 ﻿using Photon.Core.Geometry;
+using Photon.Core.Geometry.Vertex;
 using Photon.Math.Vector;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Device

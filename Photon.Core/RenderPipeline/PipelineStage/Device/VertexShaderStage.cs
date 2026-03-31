@@ -1,4 +1,5 @@
-﻿using Photon.Math.Matrix;
+﻿using Photon.Core.Geometry;
+using Photon.Math.Matrix;
 using Photon.Math.Vector;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Device
@@ -11,10 +12,11 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
 
         public override void Execute(RenderContext context, FrameBuffer? frameBuffer = null)
         {
-            for (int i = 0; i < context.geometryObjects.Count; i++)
+            Matrix4x4 vpMatrix = context.projectionMatrix * context.viewMatrix;
+			for (int i = 0; i < context.geometryObjects.Count; i++)
             {
                 Matrix4x4 worldMatrix = context.geometryObjects[i].worldMatrix;
-                Matrix4x4 mvpMatrix = context.projectionMatrix * context.viewMatrix * context.geometryObjects[i].worldMatrix;
+                Matrix4x4 mvpMatrix = vpMatrix * context.geometryObjects[i].worldMatrix;
                 for (int j = 0; j < context.geometryObjects[i].primitive.vertices.Length; j++)
                 {
                     Vector3 positionOS = context.geometryObjects[i].primitive.vertices[j].position;
@@ -27,16 +29,16 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                     Vector3 normalOS = context.geometryObjects[i].primitive.vertices[j].normal;
                     Vector3 normalWS = Matrix4x4.TransformVector(worldMatrix, normalOS);
 
-                    float depth = positionNDC.z;
+                    float depth = positionNDC.z;   
 
-                    context.geometryObjects[i].attributes["positionOS"][j] = new FragmentAttribute(positionOS);
-                    context.geometryObjects[i].attributes["positionWS"][j] = new FragmentAttribute(positionWS);
-                    context.geometryObjects[i].attributes["positionCS"][j] = new FragmentAttribute(positionCS);
-                    context.geometryObjects[i].attributes["positionNDC"][j] = new FragmentAttribute(positionNDC);
-                    context.geometryObjects[i].attributes["positionSS"][j] = new FragmentAttribute(positionSS);
-                    context.geometryObjects[i].attributes["normalOS"][j] = new FragmentAttribute(normalOS);
-                    context.geometryObjects[i].attributes["normalWS"][j] = new FragmentAttribute(normalWS);
-                    context.geometryObjects[i].attributes["depth"][j] = new FragmentAttribute(depth);
+                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionOS][j] = new GeometryAttribute(positionOS);
+                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionWS][j] = new GeometryAttribute(positionWS);
+                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionCS][j] = new GeometryAttribute(positionCS);
+                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionNDC][j] = new GeometryAttribute(positionNDC);
+                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionSS][j] = new GeometryAttribute(positionSS);
+                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.normalOS][j] = new GeometryAttribute(normalOS);
+                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.normalWS][j] = new GeometryAttribute(normalWS);
+                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.depth][j] = new GeometryAttribute(depth);
                 }
             }
         }

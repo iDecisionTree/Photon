@@ -1,4 +1,4 @@
-﻿namespace Photon.Core.Geometry
+﻿namespace Photon.Core.Geometry.Vertex
 {
     public readonly struct Primitive
     {

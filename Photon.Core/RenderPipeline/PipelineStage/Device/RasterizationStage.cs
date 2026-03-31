@@ -1,7 +1,7 @@
 ﻿using Photon.Core.Geometry;
+using Photon.Core.Geometry.Fragment;
 using Photon.Math;
-using Vector2 = Photon.Math.Vector.Vector2;
-using Vector4 = Photon.Math.Vector.Vector4;
+using Photon.Math.Vector;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Device
 {
@@ -16,21 +16,17 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             for (int i = 0; i < context.geometryObjects.Count; i++)
             {
                 GeometryObject geometryObject = context.geometryObjects[i];
+
+                int positionCSIndex = geometryObject.propertyIndexMap["positionCS"];
+                int positionSSIndex = geometryObject.propertyIndexMap["positionSS"];
+
                 for (int j = 0; j < geometryObject.primitive.triangles.Length; j += 3)
                 {
                     int index0 = geometryObject.primitive.triangles[j];
                     int index1 = geometryObject.primitive.triangles[j + 1];
                     int index2 = geometryObject.primitive.triangles[j + 2];
 
-                    Dictionary<string, (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c)> attributes = new Dictionary<string, (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c)>();
-                    foreach (KeyValuePair<string, FragmentAttribute[]> kvp in geometryObject.attributes)
-                    {
-                        string attributeName = kvp.Key;
-                        FragmentAttribute[] attributeArray = kvp.Value;
-                        attributes[attributeName] = (attributeArray[index0], attributeArray[index1], attributeArray[index2]);
-                    }
-
-                    RasterizeTriangle(context, attributes);
+                    RasterizeTriangle(context, geometryObject, positionCSIndex, positionSSIndex, index0, index1, index2);
                 }
             }
         }
@@ -40,17 +36,15 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             GC.SuppressFinalize(this);
         }
 
-        private void RasterizeTriangle(RenderContext context, Dictionary<string, (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c)> attributes)
+        private void RasterizeTriangle(RenderContext context, GeometryObject geometryObject, int positionCSIndex, int positionSSIndex, int index0, int index1, int index2)
         {
-            (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c) positionCS = attributes["positionCS"];
-            Vector4 positionCS0 = positionCS.a.vector4Value;
-            Vector4 positionCS1 = positionCS.b.vector4Value;
-            Vector4 positionCS2 = positionCS.c.vector4Value;
+            Vector4 positionCS0 = geometryObject.attributes![positionCSIndex][index0].vector4Value;
+            Vector4 positionCS1 = geometryObject.attributes![positionCSIndex][index1].vector4Value;
+            Vector4 positionCS2 = geometryObject.attributes![positionCSIndex][index2].vector4Value;
 
-            (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c) positionSS = attributes["positionSS"];
-            Vector2 positionSS0 = positionSS.a.vector2Value;
-            Vector2 positionSS1 = positionSS.b.vector2Value;
-            Vector2 positionSS2 = positionSS.c.vector2Value;
+            Vector2 positionSS0 = geometryObject.attributes![positionSSIndex][index0].vector2Value;
+            Vector2 positionSS1 = geometryObject.attributes![positionSSIndex][index1].vector2Value;
+            Vector2 positionSS2 = geometryObject.attributes![positionSSIndex][index2].vector2Value;
 
             Vector2 edge1 = positionSS1 - positionSS0;
             Vector2 edge2 = positionSS2 - positionSS0;
@@ -86,15 +80,14 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
 
                     float perspectiveDenom = 1f / (alphaInvW0 + beteInvW1 + gammaInvW2);
 
-                    Dictionary<string, FragmentAttribute> interpolatedAttributes = new Dictionary<string, FragmentAttribute>();
-
-                    foreach (KeyValuePair<string, (FragmentAttribute a, FragmentAttribute b, FragmentAttribute c)> kvp in attributes)
+                    GeometryAttribute[] interpolatedAttributes = new GeometryAttribute[geometryObject.attributes.GetLength(0)];
+                    for (int i = 0; i < geometryObject.attributes.GetLength(0); i++)
                     {
-                        FragmentAttribute interpolated = Interpolate(kvp.Value.a, kvp.Value.b, kvp.Value.c, alphaInvW0, beteInvW1, gammaInvW2, perspectiveDenom);
-                        interpolatedAttributes.Add(kvp.Key, interpolated);
+                        GeometryAttribute interpolated = Interpolate(geometryObject.attributes[i][index0], geometryObject.attributes[i][index1], geometryObject.attributes[i][index2], alphaInvW0, beteInvW1, gammaInvW2, perspectiveDenom);
+                        interpolatedAttributes[i] = interpolated;
                     }
 
-                    context.fragments.Add(new Fragment(pixelPosition, Vector4.zero, interpolatedAttributes));
+                    context.fragments.Add(new Fragment(pixelPosition, Vector4.zero, interpolatedAttributes, geometryObject.propertyIndexMap));
                 }
             }
         }
@@ -125,7 +118,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             return (alpha, beta, gamma);
         }
 
-        private FragmentAttribute Interpolate(FragmentAttribute a, FragmentAttribute b, FragmentAttribute c, float alphaInvW0, float betaInvW1, float gammaInvW2, float perspectiveDenom)
+        private GeometryAttribute Interpolate(GeometryAttribute a, GeometryAttribute b, GeometryAttribute c, float alphaInvW0, float betaInvW1, float gammaInvW2, float perspectiveDenom)
         {
             if (a.type != b.type || a.type != c.type)
             {
@@ -134,14 +127,14 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
 
             switch (a.type)
             {
-                case FragmentAttributeType.Float:
-                    return new FragmentAttribute((a.floatValue * alphaInvW0 + b.floatValue * betaInvW1 + c.floatValue * gammaInvW2) * perspectiveDenom);
-                case FragmentAttributeType.Vector2:
-                    return new FragmentAttribute((a.vector2Value * alphaInvW0 + b.vector2Value * betaInvW1 + c.vector2Value * gammaInvW2) * perspectiveDenom);
-                case FragmentAttributeType.Vector3:
-                    return new FragmentAttribute((a.vector3Value * alphaInvW0 + b.vector3Value * betaInvW1 + c.vector3Value * gammaInvW2) * perspectiveDenom);
-                case FragmentAttributeType.Vector4:
-                    return new FragmentAttribute((a.vector4Value * alphaInvW0 + b.vector4Value * betaInvW1 + c.vector4Value * gammaInvW2) * perspectiveDenom);
+                case GeometryAttributeType.Float:
+                    return new GeometryAttribute((a.floatValue * alphaInvW0 + b.floatValue * betaInvW1 + c.floatValue * gammaInvW2) * perspectiveDenom);
+                case GeometryAttributeType.Vector2:
+                    return new GeometryAttribute((a.vector2Value * alphaInvW0 + b.vector2Value * betaInvW1 + c.vector2Value * gammaInvW2) * perspectiveDenom);
+                case GeometryAttributeType.Vector3:
+                    return new GeometryAttribute((a.vector3Value * alphaInvW0 + b.vector3Value * betaInvW1 + c.vector3Value * gammaInvW2) * perspectiveDenom);
+                case GeometryAttributeType.Vector4:
+                    return new GeometryAttribute((a.vector4Value * alphaInvW0 + b.vector4Value * betaInvW1 + c.vector4Value * gammaInvW2) * perspectiveDenom);
                 default:
                     throw new InvalidOperationException("不支持的片元属性类型");
             }

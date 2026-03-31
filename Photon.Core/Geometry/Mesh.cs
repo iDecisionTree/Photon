@@ -9,6 +9,7 @@ namespace Photon.Core.Geometry
         public List<int> triangles { get; set; }
         public List<Vector2> uvs { get; set; }
         public List<Vector3> normals { get; set; }
+        public Dictionary<string, GeometryAttribute[]> vertexAttributes { get; set; }
         public BoundingBox boundingBox { get; set; }
 
         public Mesh(string name)
@@ -18,6 +19,7 @@ namespace Photon.Core.Geometry
             triangles = new List<int>();
             uvs = new List<Vector2>();
             normals = new List<Vector3>();
+            vertexAttributes = new Dictionary<string, GeometryAttribute[]>();
             boundingBox = new BoundingBox();
         }
 
