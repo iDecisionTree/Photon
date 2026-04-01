@@ -1,4 +1,5 @@
-﻿using Photon.Core.RenderPipeline.PipelineStage.Device;
+﻿using Photon.Core.Geometry.Fragment;
+using Photon.Core.RenderPipeline.PipelineStage.Device;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Application
 {
@@ -40,9 +41,12 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Application
 
             _inputAssemblerStage.Execute(context);
             _vertexShaderStage.Execute(context);
-            _rasterizationStage.Execute(context, frameBuffer);
-            _fragmentShaderStage.Execute(context);
-            _outputMergeStage.Execute(context, frameBuffer);
+
+            foreach(Fragment fragment in _rasterizationStage.Execute(context))
+            {
+                Fragment shadedFragment = _fragmentShaderStage.Execute(context, fragment);
+                _outputMergeStage.Execute(shadedFragment, frameBuffer);
+            }
         }
 
         public override void Dispose()

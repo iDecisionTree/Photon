@@ -1,4 +1,5 @@
 ﻿
+using Photon.Core.Geometry.Fragment;
 using Photon.Math.Vector;
 
 namespace Photon.Core.RenderPipeline

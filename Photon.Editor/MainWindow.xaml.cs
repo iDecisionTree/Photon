@@ -21,6 +21,7 @@ namespace Photon.Editor
         private DispatcherTimer _frameTimer;
 
         private ForwardRenderPipeline _renderPipeline;
+        private RenderContext _renderContext;
         private SceneObject _cube;
         private Camera _camera;
         private SceneManager _scene;
@@ -37,7 +38,6 @@ namespace Photon.Editor
             _frameTimer.Interval = TimeSpan.FromSeconds(1f / TARGET_FPS);
 
             _renderPipeline = new ForwardRenderPipeline();
-
             _renderPipeline.Initialize(new Vector2((float)Mathf.Max(1f, (float)Layout.Size.Width), (float)Mathf.Max(1f, (float)Layout.Size.Height)));
 
             Activated += (s, e) => _frameTimer.Start();
@@ -56,6 +56,10 @@ namespace Photon.Editor
             _scene = new SceneManager();
             _scene.sceneObjects.Add(_cube);
             _scene.sceneObjects.Add(cameraObj);
+
+            int currentWidth = (int)Mathf.Max(1f, (float)Layout.Size.Width);
+            int currentHeight = (int)Mathf.Max(1f, (float)Layout.Size.Height);
+            _renderContext = new RenderContext(_scene, _camera, new Vector2(currentWidth, currentHeight));
         }
 
         private void Layout_Draw(CanvasControl sender, CanvasDrawEventArgs args)
@@ -72,18 +76,20 @@ namespace Photon.Editor
 
             if (_renderTarget == null || _renderTarget.SizeInPixels.Width != currentWidth || _renderTarget.SizeInPixels.Height != currentHeight)
             {
+                Vector2 newSize = new Vector2(currentWidth, currentHeight);
+
                 _renderTarget?.Dispose();
                 _renderTarget = new CanvasRenderTarget(Layout, currentWidth, currentHeight, 96f, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                _renderPipeline.OnViewportResize(new Vector2(currentWidth, currentHeight));
+                _renderPipeline.OnViewportResize(newSize);
+                _renderContext.OnViewportResize(newSize);
             }
 
             Vector2 viewportSize = new Vector2(currentWidth, currentHeight);
-            RenderContext context = new RenderContext(_scene, _camera, viewportSize);
 
-            _renderPipeline.RenderFrame(context);
+            _renderPipeline.RenderFrame(_renderContext);
 
-            _renderTarget.SetPixelBytes(context.renderTarget?.GetData());
-            context.Dispose();
+            _renderTarget.SetPixelBytes(_renderContext.renderTarget?.GetData());
+            _renderContext.Clear();
 
             args.DrawingSession.DrawImage(_renderTarget);
         }

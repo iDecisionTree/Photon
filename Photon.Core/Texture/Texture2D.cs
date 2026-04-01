@@ -96,6 +96,11 @@ namespace Photon.Core.Texture
             _data = newData;
         }
 
+        public void CopyTo(Texture2D destination)
+        {
+            Copy(this, destination);
+        }
+
         public int GetByteLength()
         {
             return formatInfo.GetByteLength(width, height);
@@ -200,6 +205,34 @@ namespace Photon.Core.Texture
             }
 
             return newTexture;
+        }
+
+        public static void Copy(Texture2D source, Texture2D destination)
+        {
+            if (source.width != destination.width || source.height != destination.height)
+            {
+                throw new ArgumentException("源纹理和目标纹理的尺寸不匹配");
+            }
+            if (source._data == null || destination._data == null)
+            {
+                throw new InvalidOperationException("纹理数据未初始化");
+            }
+
+            if (source.format == destination.format)
+            {
+                Array.Copy(source._data, 0, destination._data, 0, source._data.Length);
+                return;
+            }
+
+            int pixelCount = source.width * source.height;
+            TextureFormatInfo sourceInfo = source.formatInfo;
+            TextureFormatInfo destinationInfo = destination.formatInfo;
+
+            for (int i = 0; i < pixelCount; i++)
+            {
+                Vector4 color = sourceInfo.Decode(source._data, i);
+                destinationInfo.Encode(destination._data, i, color);
+            }
         }
 
         public void Dispose()

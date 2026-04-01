@@ -16,7 +16,6 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             {
                 context.geometryObjects[i].primitive = Assemble(context.geometryObjects[i].mesh!);
             }
-
         }
 
         public override void Dispose()

@@ -1,6 +1,7 @@
 ﻿using Photon.Core.Geometry;
 using Photon.Core.Geometry.Fragment;
 using Photon.Math;
+using System.Buffers;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Device
 {
@@ -10,34 +11,24 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
         {
         }
 
-        /// <summary>
-        /// 需要帧缓冲
-        /// </summary>
         public override void Execute(RenderContext context, FrameBuffer? frameBuffer = null)
         {
-            if (frameBuffer == null)
+            throw new NotSupportedException("未实现的方法");
+        }
+
+        public void Execute(Fragment fragment, FrameBuffer frameBuffer)
+        {
+            int pixelX = (int)Mathf.Floor(fragment.positionSS.x);
+            int pixelY = (int)Mathf.Floor(fragment.positionSS.y);
+
+            float depth = fragment.attributes[(int)BuildinGeometryAttributeType.depth].floatValue;
+            if (depth > frameBuffer.GetDepth(pixelX, pixelY))
             {
-                throw new ArgumentNullException(nameof(frameBuffer), "帧缓冲不能为空");
+                return;
             }
 
-            for (int i = 0; i < context.fragments.Count; i++)
-            {
-                Fragment fragment = context.fragments[i];
-
-                int pixelX = (int)Mathf.Floor(fragment.positionSS.x);
-                int pixelY = (int)Mathf.Floor(fragment.positionSS.y);
-
-                float depth = fragment.attributes[(int)BuildinGeometryAttributeType.depth].floatValue;
-
-                if (depth > frameBuffer.GetDepth(pixelX, pixelY))
-                {
-                    continue;
-                }
-
-                frameBuffer.SetDepth(pixelX, pixelY, depth);
-
-                frameBuffer.SetColor(pixelX, pixelY, fragment.color);
-            }
+            frameBuffer.SetDepth(pixelX, pixelY, depth);
+            frameBuffer.SetColor(pixelX, pixelY, fragment.color);
         }
 
         public override void Dispose()

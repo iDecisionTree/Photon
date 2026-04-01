@@ -18,7 +18,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Application
                 throw new ArgumentNullException(nameof(frameBuffer), "帧缓冲不能为空");
             }
 
-            context.renderTarget = Texture2D.ConvertTo(frameBuffer.colorBuffer, TextureFormat.B8G8R8A8_UNorm);
+            frameBuffer.colorBuffer.CopyTo(context.renderTarget!);
         }
 
         public override void Dispose()

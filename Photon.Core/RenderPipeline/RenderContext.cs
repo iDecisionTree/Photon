@@ -16,7 +16,6 @@ namespace Photon.Core.RenderPipeline
         public List<GeometryObject> geometryObjects { get; set; }
         public Matrix4x4 viewMatrix { get; set; }
         public Matrix4x4 projectionMatrix { get; set; }
-        public List<Fragment> fragments { get; set; }
         public Texture2D? renderTarget { get; set; } = null;
 
 
@@ -27,13 +26,26 @@ namespace Photon.Core.RenderPipeline
             this.camera.aspect = viewport.x / viewport.y;
             this.viewport = viewport;
             geometryObjects = new List<GeometryObject>();
-            fragments = new List<Fragment>();
+            renderTarget = new Texture2D((int)viewport.x, (int)viewport.y, TextureFormat.B8G8R8A8_UNorm);
+        }
+
+        public void OnViewportResize(Vector2 newSize)
+        {
+            viewport = newSize;
+            camera.aspect = newSize.x / newSize.y;
+
+            renderTarget?.Dispose();
+            renderTarget = new Texture2D((int)newSize.x, (int)newSize.y, TextureFormat.B8G8R8A8_UNorm);
+        }
+
+        public void Clear()
+        {
+            geometryObjects.Clear();
         }
 
         public void Dispose()
         {
             geometryObjects.Clear();
-            fragments.Clear();
             renderTarget?.Dispose();
             GC.SuppressFinalize(this);
         }

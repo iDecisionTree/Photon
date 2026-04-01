@@ -2,16 +2,22 @@
 using Photon.Core.Geometry.Fragment;
 using Photon.Math;
 using Photon.Math.Vector;
+using System.Buffers;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Device
 {
     public class RasterizationStage : PipelineStageBase
-    {
+    { 
         public override void Initialize()
         {
         }
 
         public override void Execute(RenderContext context, FrameBuffer? frameBuffer = null)
+        {
+            throw new NotSupportedException("未实现的方法");
+        }
+
+        public IEnumerable<Fragment> Execute(RenderContext context)
         {
             for (int i = 0; i < context.geometryObjects.Count; i++)
             {
@@ -26,7 +32,10 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                     int index1 = geometryObject.primitive.triangles[j + 1];
                     int index2 = geometryObject.primitive.triangles[j + 2];
 
-                    RasterizeTriangle(context, geometryObject, positionCSIndex, positionSSIndex, index0, index1, index2);
+                    foreach(Fragment fragment in RasterizeTriangle(context, geometryObject, positionCSIndex, positionSSIndex, index0, index1, index2))
+                    {
+                        yield return fragment;
+                    }
                 }
             }
         }
@@ -36,7 +45,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             GC.SuppressFinalize(this);
         }
 
-        private void RasterizeTriangle(RenderContext context, GeometryObject geometryObject, int positionCSIndex, int positionSSIndex, int index0, int index1, int index2)
+        private IEnumerable<Fragment> RasterizeTriangle(RenderContext context, GeometryObject geometryObject, int positionCSIndex, int positionSSIndex, int index0, int index1, int index2)
         {
             Vector4 positionCS0 = geometryObject.attributes![positionCSIndex][index0].vector4Value;
             Vector4 positionCS1 = geometryObject.attributes![positionCSIndex][index1].vector4Value;
@@ -50,7 +59,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             Vector2 edge2 = positionSS2 - positionSS0;
             if (Vector2.Cross(edge1, edge2) > 0f)
             {
-                return;
+                yield break;
             }
 
             int minX = (int)Mathf.Max(0f, (float)Mathf.Floor(Mathf.Min(positionSS0.x, Mathf.Min(positionSS1.x, positionSS2.x))));
@@ -80,14 +89,22 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
 
                     float perspectiveDenom = 1f / (alphaInvW0 + beteInvW1 + gammaInvW2);
 
-                    GeometryAttribute[] interpolatedAttributes = new GeometryAttribute[geometryObject.attributes.GetLength(0)];
-                    for (int i = 0; i < geometryObject.attributes.GetLength(0); i++)
+                    GeometryAttribute[] interpolatedAttributes = ArrayPool<GeometryAttribute>.Shared.Rent(geometryObject.attributes.GetLength(0));
+                    try
                     {
-                        GeometryAttribute interpolated = Interpolate(geometryObject.attributes[i][index0], geometryObject.attributes[i][index1], geometryObject.attributes[i][index2], alphaInvW0, beteInvW1, gammaInvW2, perspectiveDenom);
-                        interpolatedAttributes[i] = interpolated;
-                    }
+                        for (int i = 0; i < geometryObject.attributes.GetLength(0); i++)
+                        {
+                            GeometryAttribute interpolated = Interpolate(geometryObject.attributes[i][index0], geometryObject.attributes[i][index1], geometryObject.attributes[i][index2], alphaInvW0, beteInvW1, gammaInvW2, perspectiveDenom);
+                            interpolatedAttributes[i] = interpolated;
+                        }
 
-                    context.fragments.Add(new Fragment(pixelPosition, Vector4.zero, interpolatedAttributes, geometryObject.propertyIndexMap));
+                        yield return new Fragment(pixelPosition, Vector4.zero, interpolatedAttributes, geometryObject.propertyIndexMap);
+
+                    }
+                    finally
+                    {
+                        ArrayPool<GeometryAttribute>.Shared.Return(interpolatedAttributes);
+                    }
                 }
             }
         }

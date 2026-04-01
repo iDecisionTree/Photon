@@ -31,8 +31,11 @@ namespace Photon.Core.Texture
             uint bBits = EncodeUFloat(Mathf.Max(color.z, 0f), 5, 64512f);
 
             uint packed = (rBits << 21) | (gBits << 10) | bBits;
-            byte[] packedBytes = BitConverter.GetBytes(packed);
-            Array.Copy(packedBytes, 0, data, byteIndex, 4);
+
+            data[byteIndex] = (byte)(packed & 0xFF);
+            data[byteIndex + 1] = (byte)((packed >> 8) & 0xFF);
+            data[byteIndex + 2] = (byte)((packed >> 16) & 0xFF);
+            data[byteIndex + 3] = (byte)((packed >> 24) & 0xFF);
         }
 
         private float DecodeUFloat(uint bits, int mantissaBits)
