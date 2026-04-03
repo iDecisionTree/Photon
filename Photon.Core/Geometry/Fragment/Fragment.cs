@@ -16,7 +16,7 @@ namespace Photon.Core.Geometry.Fragment
             this.attributes = attributes;
             this.propertyIndexMap = propertyIndexMap;
         }
-        
+
         public GeometryAttribute this[string name]
         {
             get

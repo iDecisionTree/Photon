@@ -77,6 +77,11 @@ namespace Photon.Math.Vector
             return new Vector4(a * b.x, a * b.y, a * b.z, a * b.w);
         }
 
+        public static Vector4 operator *(Vector4 a, Vector4 b)
+        {
+            return new Vector4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
+        }
+
         public static Vector4 operator /(Vector4 a, float b)
         {
             if (Mathf.Approximately(b, 0f))

@@ -13,7 +13,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
         public override void Execute(RenderContext context, FrameBuffer? frameBuffer = null)
         {
             Matrix4x4 vpMatrix = context.projectionMatrix * context.viewMatrix;
-			for (int i = 0; i < context.geometryObjects.Count; i++)
+            for (int i = 0; i < context.geometryObjects.Count; i++)
             {
                 Matrix4x4 worldMatrix = context.geometryObjects[i].worldMatrix;
                 Matrix4x4 mvpMatrix = vpMatrix * context.geometryObjects[i].worldMatrix;
@@ -29,7 +29,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                     Vector3 normalOS = context.geometryObjects[i].primitive.vertices[j].normal;
                     Vector3 normalWS = Matrix4x4.TransformVector(worldMatrix, normalOS);
 
-                    float depth = positionNDC.z;   
+                    float depth = positionNDC.z;
 
                     context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionOS][j] = new GeometryAttribute(positionOS);
                     context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionWS][j] = new GeometryAttribute(positionWS);

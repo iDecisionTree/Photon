@@ -1,7 +1,6 @@
 ﻿using Photon.Core.Geometry;
 using Photon.Core.Geometry.Fragment;
 using Photon.Math;
-using System.Buffers;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Device
 {

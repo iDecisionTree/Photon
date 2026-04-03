@@ -42,7 +42,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Application
             _inputAssemblerStage.Execute(context);
             _vertexShaderStage.Execute(context);
 
-            foreach(Fragment fragment in _rasterizationStage.Execute(context))
+            foreach (Fragment fragment in _rasterizationStage.Execute(context))
             {
                 Fragment shadedFragment = _fragmentShaderStage.Execute(context, fragment);
                 _outputMergeStage.Execute(shadedFragment, frameBuffer);

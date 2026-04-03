@@ -1,6 +1,5 @@
 ﻿using Photon.Core.Component;
 using Photon.Core.Geometry;
-using Photon.Core.Geometry.Fragment;
 using Photon.Core.Scene;
 using Photon.Core.Texture;
 using Photon.Math.Matrix;
@@ -12,6 +11,7 @@ namespace Photon.Core.RenderPipeline
     {
         public SceneManager sceneManager { get; set; }
         public Camera camera { get; set; }
+        public Light[] lights { get; set; }
         public Vector2 viewport { get; set; }
         public List<GeometryObject> geometryObjects { get; set; }
         public Matrix4x4 viewMatrix { get; set; }
@@ -19,10 +19,11 @@ namespace Photon.Core.RenderPipeline
         public Texture2D? renderTarget { get; set; } = null;
 
 
-        public RenderContext(SceneManager sceneManager, Camera camera, Vector2 viewport)
+        public RenderContext(SceneManager sceneManager, Camera camera, Light[] lights, Vector2 viewport)
         {
             this.sceneManager = sceneManager;
             this.camera = camera;
+            this.lights = lights;
             this.camera.aspect = viewport.x / viewport.y;
             this.viewport = viewport;
             geometryObjects = new List<GeometryObject>();

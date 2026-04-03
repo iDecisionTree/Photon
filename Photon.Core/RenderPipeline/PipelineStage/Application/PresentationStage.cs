@@ -1,6 +1,4 @@
-﻿using Photon.Core.Texture;
-
-namespace Photon.Core.RenderPipeline.PipelineStage.Application
+﻿namespace Photon.Core.RenderPipeline.PipelineStage.Application
 {
     public class PresentationStage : PipelineStageBase
     {

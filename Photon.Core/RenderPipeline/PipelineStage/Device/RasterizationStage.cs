@@ -7,7 +7,7 @@ using System.Buffers;
 namespace Photon.Core.RenderPipeline.PipelineStage.Device
 {
     public class RasterizationStage : PipelineStageBase
-    { 
+    {
         public override void Initialize()
         {
         }
@@ -32,7 +32,7 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                     int index1 = geometryObject.primitive.triangles[j + 1];
                     int index2 = geometryObject.primitive.triangles[j + 2];
 
-                    foreach(Fragment fragment in RasterizeTriangle(context, geometryObject, positionCSIndex, positionSSIndex, index0, index1, index2))
+                    foreach (Fragment fragment in RasterizeTriangle(context, geometryObject, positionCSIndex, positionSSIndex, index0, index1, index2))
                     {
                         yield return fragment;
                     }
@@ -99,7 +99,6 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                         }
 
                         yield return new Fragment(pixelPosition, Vector4.zero, interpolatedAttributes, geometryObject.propertyIndexMap);
-
                     }
                     finally
                     {

@@ -3,7 +3,7 @@ using Photon.Math.Matrix;
 
 namespace Photon.Core.Component
 {
-    public class Camera : Transform
+    public class Camera : ComponentBase
     {
         public float fov
         {
