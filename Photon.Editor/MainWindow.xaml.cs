@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml;
 using Photon.Core.Component;
 using Photon.Core.Geometry;
 using Photon.Core.Lighting;
+using Photon.Core.Material.Example;
 using Photon.Core.RenderPipeline;
 using Photon.Core.RenderPipeline.Forward;
 using Photon.Core.Scene;
@@ -56,6 +57,9 @@ namespace Photon.Editor
             _cube = new SceneObject("Cube");
             MeshRenderer meshRenderer = _cube.AddComponent<MeshRenderer>();
             meshRenderer.mesh = MeshPrimitive.CreateCube(2f);
+            ExampleMaterial material = new ExampleMaterial();
+            material.baseColor = new Vector4(0.2f, 0.6f, 0.8f, 1f);
+            meshRenderer.material = material;
 
             SceneObject cameraObj = new SceneObject("Camera");
             _camera = cameraObj.AddComponent<Camera>();

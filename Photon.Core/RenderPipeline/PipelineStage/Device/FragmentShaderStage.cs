@@ -1,7 +1,5 @@
-﻿using Photon.Core.Component;
-using Photon.Core.Geometry;
-using Photon.Core.Geometry.Fragment;
-using Photon.Math;
+﻿using Photon.Core.Geometry.Fragment;
+using Photon.Core.Shader;
 using Photon.Math.Vector;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Device
@@ -19,18 +17,18 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
 
         public Fragment Execute(RenderContext context, Fragment fragment)
         {
-            Light light = context.lights[0];
+            ArgumentNullException.ThrowIfNull(context);
 
-            Vector3 positionWS = fragment.attributes[(int)BuildinGeometryAttributeType.positionWS].vector3Value;
-            Vector3 normalWS = fragment.attributes[(int)BuildinGeometryAttributeType.normalWS].vector3Value;
+            ShaderBase? shader = fragment.material.shader;
+            if (shader == null)
+            {
+                throw new InvalidOperationException("Fragment 对应材质未绑定 Shader");
+            }
 
-            float lambert = Vector3.Dot(normalWS, -light.GetLightDirection(positionWS));
-            lambert = Mathf.Max(lambert, 0f);
-            float halfLambert = Mathf.Pow(lambert * 0.5f + 0.5f, 2f);
-
-            float attenuation = light.GetAttenuation(positionWS);
-
-            fragment.color = new Vector4(halfLambert, halfLambert, halfLambert, 1f);
+            shader.material = fragment.material;
+            shader.BindFragmentInput(fragment, out IVertexToFragment input);
+            shader.FragmentShader(input, out Vector4 color);
+            fragment.color = color;
 
             return fragment;
         }

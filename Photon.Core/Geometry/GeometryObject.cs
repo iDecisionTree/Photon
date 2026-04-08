@@ -1,52 +1,68 @@
 ﻿using Photon.Core.Geometry.Vertex;
+using Photon.Core.Material;
+using Photon.Core.Shader;
 using Photon.Math.Matrix;
 
 namespace Photon.Core.Geometry
 {
     public class GeometryObject
     {
-        public Mesh? mesh { get; set; } = null;
+        public Mesh mesh { get; set; }
+        public MaterialBase material { get; set; }
         public Primitive primitive { get; set; }
-        public Matrix4x4 worldMatrix { get; set; }
         public Dictionary<string, int> propertyIndexMap { get; set; }
-        public GeometryAttribute[][]? attributes { get; set; } = null;
+        public GeometryProperty[][] properties { get; set; }
 
-        public GeometryObject()
+        public GeometryObject(Mesh mesh, MaterialBase material)
         {
+            this.mesh = mesh;
+            this.material = material;
             propertyIndexMap = new Dictionary<string, int>();
+            properties = new GeometryProperty[(int)BuildinGeometryPropertyType.Count + mesh.vertexProperties.Count][];
         }
 
-        public void Initialize()
+        public void Initialize(Matrix4x4 worldMatrix, Matrix4x4 viewMatrix, Matrix4x4 projectionMatrix)
         {
-            if (mesh == null)
-            {
-                return;
-            }
-
             int currentIndex = 0;
-            List<GeometryAttribute[]> attributeList = new List<GeometryAttribute[]>();
-            foreach (BuildinGeometryAttributeType type in Enum.GetValues<BuildinGeometryAttributeType>())
+            foreach (BuildinGeometryPropertyType type in Enum.GetValues<BuildinGeometryPropertyType>())
             {
-                if (type == BuildinGeometryAttributeType.count)
+                if (type == BuildinGeometryPropertyType.Count)
                 {
                     continue;
                 }
 
                 string name = Enum.GetName(type) ?? type.ToString();
-                propertyIndexMap.TryAdd(name, currentIndex++);
-
-                attributeList.Add(new GeometryAttribute[mesh.vertices.Count]);
+                propertyIndexMap.TryAdd(name, currentIndex);
+                properties[currentIndex++] = new GeometryProperty[mesh.vertices.Count];
             }
-            foreach (KeyValuePair<string, GeometryAttribute[]> kvp in mesh.vertexAttributes)
+            foreach (KeyValuePair<string, GeometryProperty[]> kvp in mesh.vertexProperties)
             {
                 if (propertyIndexMap.TryAdd(kvp.Key, currentIndex))
                 {
                     currentIndex++;
-                    attributeList.Add(kvp.Value);
+                    properties[currentIndex] = kvp.Value;
                 }
             }
 
-            attributes = attributeList.ToArray();
+            Matrix4x4 mvp = projectionMatrix * viewMatrix * worldMatrix;
+
+            currentIndex = 0;
+            foreach (BuildinShaderUniformType type in Enum.GetValues<BuildinShaderUniformType>())
+            {
+                if (type == BuildinShaderUniformType.Count)
+                {
+                    continue;
+                }
+
+                string name = Enum.GetName(type) ?? type.ToString();
+                material.propertyIndexMap.TryAdd(name, currentIndex++);
+            }
+            material.shaderUniforms![(int)BuildinShaderUniformType.Matrix_M] = new ShaderUniform(worldMatrix);
+            material.shaderUniforms![(int)BuildinShaderUniformType.Matrix_V] = new ShaderUniform(viewMatrix);
+            material.shaderUniforms![(int)BuildinShaderUniformType.Matrix_P] = new ShaderUniform(projectionMatrix);
+            material.shaderUniforms![(int)BuildinShaderUniformType.Matrix_MVP] = new ShaderUniform(mvp);
+
+            material.BindUniform();
         }
     }
 }

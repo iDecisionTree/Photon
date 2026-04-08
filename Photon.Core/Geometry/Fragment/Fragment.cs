@@ -1,4 +1,5 @@
-﻿using Photon.Math.Vector;
+﻿using Photon.Core.Material;
+using Photon.Math.Vector;
 
 namespace Photon.Core.Geometry.Fragment
 {
@@ -6,27 +7,29 @@ namespace Photon.Core.Geometry.Fragment
     {
         public readonly Vector2 positionSS;
         public Vector4 color;
-        public readonly GeometryAttribute[] attributes;
+        public readonly GeometryProperty[] properties;
         public readonly Dictionary<string, int> propertyIndexMap;
+        public readonly MaterialBase material;
 
-        public Fragment(Vector2 positionSS, Vector4 color, GeometryAttribute[] attributes, Dictionary<string, int> propertyIndexMap)
+        public Fragment(Vector2 positionSS, Vector4 color, GeometryProperty[] properties, Dictionary<string, int> propertyIndexMap, MaterialBase material)
         {
             this.positionSS = positionSS;
             this.color = color;
-            this.attributes = attributes;
+            this.properties = properties;
             this.propertyIndexMap = propertyIndexMap;
+            this.material = material;
         }
 
-        public GeometryAttribute this[string name]
+        public GeometryProperty this[string name]
         {
             get
             {
                 if (propertyIndexMap.TryGetValue(name, out int index))
                 {
-                    return attributes[index];
+                    return properties[index];
                 }
 
-                throw new ArgumentException($"片元属性{name}不存在");
+                throw new ArgumentException($"几何属性{name}不存在");
             }
         }
     }

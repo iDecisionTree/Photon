@@ -1,4 +1,6 @@
 ﻿using Photon.Core.Geometry;
+using Photon.Core.Shader;
+using Photon.Math;
 using Photon.Math.Matrix;
 using Photon.Math.Vector;
 
@@ -12,35 +14,90 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
 
         public override void Execute(RenderContext context, FrameBuffer? frameBuffer = null)
         {
-            Matrix4x4 vpMatrix = context.projectionMatrix * context.viewMatrix;
             for (int i = 0; i < context.geometryObjects.Count; i++)
             {
-                Matrix4x4 worldMatrix = context.geometryObjects[i].worldMatrix;
-                Matrix4x4 mvpMatrix = vpMatrix * context.geometryObjects[i].worldMatrix;
+                GeometryObject geometryObject = context.geometryObjects[i];
+                ShaderBase? shader = geometryObject.material.shader;
+                if (shader == null)
+                {
+                    continue;
+                }
+
+                shader.material = geometryObject.material;
+                geometryObject.material.BindUniform();
+
                 for (int j = 0; j < context.geometryObjects[i].primitive.vertices.Length; j++)
                 {
-                    Vector3 positionOS = context.geometryObjects[i].primitive.vertices[j].position;
-
-                    Vector3 positionWS = Matrix4x4.TransformPoint(worldMatrix, positionOS);
-                    Vector4 positionCS = Matrix4x4.Transform(mvpMatrix, new Vector4(positionOS, 1f));
-                    Vector3 positionNDC = new Vector3(positionCS.x, positionCS.y, positionCS.z) / positionCS.w;
-                    Vector2 positionSS = new Vector2((positionNDC.x + 1f) * 0.5f * context.viewport.x, (1f - (positionNDC.y + 1f) * 0.5f) * context.viewport.y);
-
-                    Vector3 normalOS = context.geometryObjects[i].primitive.vertices[j].normal;
-                    Vector3 normalWS = Matrix4x4.TransformVector(worldMatrix, normalOS);
-
-                    float depth = positionNDC.z;
-
-                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionOS][j] = new GeometryAttribute(positionOS);
-                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionWS][j] = new GeometryAttribute(positionWS);
-                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionCS][j] = new GeometryAttribute(positionCS);
-                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionNDC][j] = new GeometryAttribute(positionNDC);
-                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.positionSS][j] = new GeometryAttribute(positionSS);
-                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.normalOS][j] = new GeometryAttribute(normalOS);
-                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.normalWS][j] = new GeometryAttribute(normalWS);
-                    context.geometryObjects[i].attributes![(int)BuildinGeometryAttributeType.depth][j] = new GeometryAttribute(depth);
+                    shader.BindVertexInput(geometryObject, j, out IVertexInput input);
+                    shader.VertexShader(input, out IVertexToFragment output);
+                    shader.BindVertexToFragment(geometryObject, j, output);
+                    WriteBuiltInGeometryProperties(context, geometryObject, j);
                 }
             }
+        }
+
+        private static void WriteBuiltInGeometryProperties(RenderContext context, GeometryObject geometryObject, int vertexIndex)
+        {
+            ShaderUniform[]? uniforms = geometryObject.material.shaderUniforms;
+            if (uniforms == null)
+            {
+                return;
+            }
+
+            Vector4 positionCS;
+            int positionWSIndex = GetGeometryPropertyIndex(geometryObject, "positionWS");
+            if (positionWSIndex >= 0)
+            {
+                Vector3 positionWS = geometryObject.properties[positionWSIndex][vertexIndex].vector3Value;
+                Matrix4x4 view = uniforms[(int)BuildinShaderUniformType.Matrix_V].matrix4x4Value;
+                Matrix4x4 projection = uniforms[(int)BuildinShaderUniformType.Matrix_P].matrix4x4Value;
+                positionCS = Matrix4x4.Transform(projection * view, new Vector4(positionWS, 1f));
+            }
+            else
+            {
+                Vector3 positionOS = geometryObject.primitive.vertices[vertexIndex].position;
+                Matrix4x4 mvp = uniforms[(int)BuildinShaderUniformType.Matrix_MVP].matrix4x4Value;
+                positionCS = Matrix4x4.Transform(mvp, new Vector4(positionOS, 1f));
+            }
+
+            float invW = Mathf.Approximately(positionCS.w, 0f) ? 0f : 1f / positionCS.w;
+            float ndcX = positionCS.x * invW;
+            float ndcY = positionCS.y * invW;
+            float ndcZ = positionCS.z * invW;
+
+            float positionSSX = (ndcX * 0.5f + 0.5f) * (context.viewport.x - 1f);
+            float positionSSY = (1f - (ndcY * 0.5f + 0.5f)) * (context.viewport.y - 1f);
+
+            int positionSSIndex = GetGeometryPropertyIndex(geometryObject, BuildinGeometryPropertyType.PositionSS.ToString());
+            int depthIndex = GetGeometryPropertyIndex(geometryObject, BuildinGeometryPropertyType.Depth.ToString());
+
+            if (positionSSIndex >= 0)
+            {
+                geometryObject.properties[positionSSIndex][vertexIndex] = new GeometryProperty(new Vector4(positionSSX, positionSSY, ndcZ, positionCS.w));
+            }
+
+            if (depthIndex >= 0)
+            {
+                geometryObject.properties[depthIndex][vertexIndex] = new GeometryProperty(ndcZ);
+            }
+        }
+
+        private static int GetGeometryPropertyIndex(GeometryObject geometryObject, string propertyName)
+        {
+            if (geometryObject.propertyIndexMap.TryGetValue(propertyName, out int index))
+            {
+                return index;
+            }
+
+            foreach (KeyValuePair<string, int> pair in geometryObject.propertyIndexMap)
+            {
+                if (string.Equals(pair.Key, propertyName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return pair.Value;
+                }
+            }
+
+            return -1;
         }
 
         public override void Dispose()

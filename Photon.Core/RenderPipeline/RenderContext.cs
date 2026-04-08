@@ -2,7 +2,6 @@
 using Photon.Core.Geometry;
 using Photon.Core.Scene;
 using Photon.Core.Texture;
-using Photon.Math.Matrix;
 using Photon.Math.Vector;
 
 namespace Photon.Core.RenderPipeline
@@ -14,8 +13,6 @@ namespace Photon.Core.RenderPipeline
         public Light[] lights { get; set; }
         public Vector2 viewport { get; set; }
         public List<GeometryObject> geometryObjects { get; set; }
-        public Matrix4x4 viewMatrix { get; set; }
-        public Matrix4x4 projectionMatrix { get; set; }
         public Texture2D? renderTarget { get; set; } = null;
 
 

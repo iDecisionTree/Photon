@@ -23,19 +23,29 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             {
                 GeometryObject geometryObject = context.geometryObjects[i];
 
-                int positionCSIndex = geometryObject.propertyIndexMap["positionCS"];
-                int positionSSIndex = geometryObject.propertyIndexMap["positionSS"];
-
-                for (int j = 0; j < geometryObject.primitive.triangles.Length; j += 3)
+                foreach (Fragment fragment in Execute(context, geometryObject))
                 {
-                    int index0 = geometryObject.primitive.triangles[j];
-                    int index1 = geometryObject.primitive.triangles[j + 1];
-                    int index2 = geometryObject.primitive.triangles[j + 2];
+                    yield return fragment;
+                }
+            }
+        }
 
-                    foreach (Fragment fragment in RasterizeTriangle(context, geometryObject, positionCSIndex, positionSSIndex, index0, index1, index2))
-                    {
-                        yield return fragment;
-                    }
+        public IEnumerable<Fragment> Execute(RenderContext context, GeometryObject geometryObject)
+        {
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(geometryObject);
+
+            int positionSSIndex = geometryObject.propertyIndexMap["PositionSS"];
+
+            for (int j = 0; j < geometryObject.primitive.triangles.Length; j += 3)
+            {
+                int index0 = geometryObject.primitive.triangles[j];
+                int index1 = geometryObject.primitive.triangles[j + 1];
+                int index2 = geometryObject.primitive.triangles[j + 2];
+
+                foreach (Fragment fragment in RasterizeTriangle(context, geometryObject, positionSSIndex, index0, index1, index2))
+                {
+                    yield return fragment;
                 }
             }
         }
@@ -45,27 +55,27 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             GC.SuppressFinalize(this);
         }
 
-        private IEnumerable<Fragment> RasterizeTriangle(RenderContext context, GeometryObject geometryObject, int positionCSIndex, int positionSSIndex, int index0, int index1, int index2)
+        private IEnumerable<Fragment> RasterizeTriangle(RenderContext context, GeometryObject geometryObject, int positionSSIndex, int index0, int index1, int index2)
         {
-            Vector4 positionCS0 = geometryObject.attributes![positionCSIndex][index0].vector4Value;
-            Vector4 positionCS1 = geometryObject.attributes![positionCSIndex][index1].vector4Value;
-            Vector4 positionCS2 = geometryObject.attributes![positionCSIndex][index2].vector4Value;
+            Vector4 positionSS0 = geometryObject.properties![positionSSIndex][index0].vector4Value;
+            Vector4 positionSS1 = geometryObject.properties![positionSSIndex][index1].vector4Value;
+            Vector4 positionSS2 = geometryObject.properties![positionSSIndex][index2].vector4Value;
 
-            Vector2 positionSS0 = geometryObject.attributes![positionSSIndex][index0].vector2Value;
-            Vector2 positionSS1 = geometryObject.attributes![positionSSIndex][index1].vector2Value;
-            Vector2 positionSS2 = geometryObject.attributes![positionSSIndex][index2].vector2Value;
+            Vector2 positionSS0XY = new Vector2(positionSS0.x, positionSS0.y);
+            Vector2 positionSS1XY = new Vector2(positionSS1.x, positionSS1.y);
+            Vector2 positionSS2XY = new Vector2(positionSS2.x, positionSS2.y);
 
-            Vector2 edge1 = positionSS1 - positionSS0;
-            Vector2 edge2 = positionSS2 - positionSS0;
+            Vector2 edge1 = positionSS1XY - positionSS0XY;
+            Vector2 edge2 = positionSS2XY - positionSS0XY;
             if (Vector2.Cross(edge1, edge2) > 0f)
             {
                 yield break;
             }
 
-            int minX = (int)Mathf.Max(0f, (float)Mathf.Floor(Mathf.Min(positionSS0.x, Mathf.Min(positionSS1.x, positionSS2.x))));
-            int maxX = (int)Mathf.Min(context.viewport.x - 1f, (float)Mathf.Ceiling(Mathf.Max(positionSS0.x, Mathf.Max(positionSS1.x, positionSS2.x))));
-            int minY = (int)Mathf.Max(0f, (float)Mathf.Floor(Mathf.Min(positionSS0.y, Mathf.Min(positionSS1.y, positionSS2.y))));
-            int maxY = (int)Mathf.Min(context.viewport.y - 1f, (float)Mathf.Ceiling(Mathf.Max(positionSS0.y, Mathf.Max(positionSS1.y, positionSS2.y))));
+            int minX = (int)Mathf.Max(0f, (float)Mathf.Floor(Mathf.Min(positionSS0XY.x, Mathf.Min(positionSS1XY.x, positionSS2XY.x))));
+            int maxX = (int)Mathf.Min(context.viewport.x - 1f, (float)Mathf.Ceiling(Mathf.Max(positionSS0XY.x, Mathf.Max(positionSS1XY.x, positionSS2XY.x))));
+            int minY = (int)Mathf.Max(0f, (float)Mathf.Floor(Mathf.Min(positionSS0XY.y, Mathf.Min(positionSS1XY.y, positionSS2XY.y))));
+            int maxY = (int)Mathf.Min(context.viewport.y - 1f, (float)Mathf.Ceiling(Mathf.Max(positionSS0XY.y, Mathf.Max(positionSS1XY.y, positionSS2XY.y))));
 
             for (int y = minY; y <= maxY; y++)
             {
@@ -73,15 +83,15 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                 {
                     Vector2 pixelPosition = new Vector2(x + 0.5f, y + 0.5f);
 
-                    (float alpha, float beta, float gamma) = CalculateBarycentric(pixelPosition, positionSS0, positionSS1, positionSS2);
+                    (float alpha, float beta, float gamma) = CalculateBarycentric(pixelPosition, positionSS0XY, positionSS1XY, positionSS2XY);
                     if (alpha < 0f || beta < 0f || gamma < 0f)
                     {
                         continue;
                     }
 
-                    float invW0 = 1f / positionCS0.w;
-                    float invW1 = 1f / positionCS1.w;
-                    float invW2 = 1f / positionCS2.w;
+                    float invW0 = 1f / positionSS0.w;
+                    float invW1 = 1f / positionSS1.w;
+                    float invW2 = 1f / positionSS2.w;
 
                     float alphaInvW0 = alpha * invW0;
                     float beteInvW1 = beta * invW1;
@@ -89,20 +99,20 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
 
                     float perspectiveDenom = 1f / (alphaInvW0 + beteInvW1 + gammaInvW2);
 
-                    GeometryAttribute[] interpolatedAttributes = ArrayPool<GeometryAttribute>.Shared.Rent(geometryObject.attributes.GetLength(0));
+                    GeometryProperty[] interpolatedProperties = ArrayPool<GeometryProperty>.Shared.Rent(geometryObject.properties.GetLength(0));
                     try
                     {
-                        for (int i = 0; i < geometryObject.attributes.GetLength(0); i++)
+                        for (int i = 0; i < geometryObject.properties.GetLength(0); i++)
                         {
-                            GeometryAttribute interpolated = Interpolate(geometryObject.attributes[i][index0], geometryObject.attributes[i][index1], geometryObject.attributes[i][index2], alphaInvW0, beteInvW1, gammaInvW2, perspectiveDenom);
-                            interpolatedAttributes[i] = interpolated;
+                            GeometryProperty interpolated = Interpolate(geometryObject.properties[i][index0], geometryObject.properties[i][index1], geometryObject.properties[i][index2], alphaInvW0, beteInvW1, gammaInvW2, perspectiveDenom);
+                            interpolatedProperties[i] = interpolated;
                         }
 
-                        yield return new Fragment(pixelPosition, Vector4.zero, interpolatedAttributes, geometryObject.propertyIndexMap);
+                        yield return new Fragment(pixelPosition, Vector4.zero, interpolatedProperties, geometryObject.propertyIndexMap, geometryObject.material);
                     }
                     finally
                     {
-                        ArrayPool<GeometryAttribute>.Shared.Return(interpolatedAttributes);
+                        ArrayPool<GeometryProperty>.Shared.Return(interpolatedProperties);
                     }
                 }
             }
@@ -134,25 +144,25 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
             return (alpha, beta, gamma);
         }
 
-        private GeometryAttribute Interpolate(GeometryAttribute a, GeometryAttribute b, GeometryAttribute c, float alphaInvW0, float betaInvW1, float gammaInvW2, float perspectiveDenom)
+        private GeometryProperty Interpolate(GeometryProperty a, GeometryProperty b, GeometryProperty c, float alphaInvW0, float betaInvW1, float gammaInvW2, float perspectiveDenom)
         {
             if (a.type != b.type || a.type != c.type)
             {
-                throw new InvalidOperationException("片元属性类型不匹配");
+                throw new InvalidOperationException("几何属性类型不匹配");
             }
 
             switch (a.type)
             {
-                case GeometryAttributeType.Float:
-                    return new GeometryAttribute((a.floatValue * alphaInvW0 + b.floatValue * betaInvW1 + c.floatValue * gammaInvW2) * perspectiveDenom);
-                case GeometryAttributeType.Vector2:
-                    return new GeometryAttribute((a.vector2Value * alphaInvW0 + b.vector2Value * betaInvW1 + c.vector2Value * gammaInvW2) * perspectiveDenom);
-                case GeometryAttributeType.Vector3:
-                    return new GeometryAttribute((a.vector3Value * alphaInvW0 + b.vector3Value * betaInvW1 + c.vector3Value * gammaInvW2) * perspectiveDenom);
-                case GeometryAttributeType.Vector4:
-                    return new GeometryAttribute((a.vector4Value * alphaInvW0 + b.vector4Value * betaInvW1 + c.vector4Value * gammaInvW2) * perspectiveDenom);
+                case GeometryPropertyType.Float:
+                    return new GeometryProperty((a.floatValue * alphaInvW0 + b.floatValue * betaInvW1 + c.floatValue * gammaInvW2) * perspectiveDenom);
+                case GeometryPropertyType.Vector2:
+                    return new GeometryProperty((a.vector2Value * alphaInvW0 + b.vector2Value * betaInvW1 + c.vector2Value * gammaInvW2) * perspectiveDenom);
+                case GeometryPropertyType.Vector3:
+                    return new GeometryProperty((a.vector3Value * alphaInvW0 + b.vector3Value * betaInvW1 + c.vector3Value * gammaInvW2) * perspectiveDenom);
+                case GeometryPropertyType.Vector4:
+                    return new GeometryProperty((a.vector4Value * alphaInvW0 + b.vector4Value * betaInvW1 + c.vector4Value * gammaInvW2) * perspectiveDenom);
                 default:
-                    throw new InvalidOperationException("不支持的片元属性类型");
+                    throw new InvalidOperationException("不支持的几何属性类型");
             }
         }
     }
