@@ -14,6 +14,9 @@
 	<WindowsPackageType>None</WindowsPackageType>
     <Nullable>enable</Nullable>
 	<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+	<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+	<EnableSourceGeneratorDuringPublish>true</EnableSourceGeneratorDuringPublish>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Photon.Core.Shader.Generator\Photon.Core.Shader.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Photon.Core\Photon.Core.csproj" />
     <ProjectReference Include="..\Photon.Math\Photon.Math.csproj" />
   </ItemGroup>
