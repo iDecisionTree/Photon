@@ -19,15 +19,19 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
         {
             int pixelX = (int)Mathf.Floor(fragment.positionSS.x);
             int pixelY = (int)Mathf.Floor(fragment.positionSS.y);
+            Execute(fragment, frameBuffer, pixelX, pixelY);
+        }
 
+        public void Execute(Fragment fragment, FrameBuffer frameBuffer, int pixelX, int pixelY)
+        {
             float depth = fragment.properties[(int)BuildinGeometryPropertyType.Depth].floatValue;
-            if (depth > frameBuffer.GetDepth(pixelX, pixelY))
+            if (depth > frameBuffer.GetDepthUnchecked(pixelX, pixelY))
             {
                 return;
             }
 
-            frameBuffer.SetDepth(pixelX, pixelY, depth);
-            frameBuffer.SetColor(pixelX, pixelY, fragment.color);
+            frameBuffer.SetDepthUnchecked(pixelX, pixelY, depth);
+            frameBuffer.SetColorUnchecked(pixelX, pixelY, fragment.color);
         }
 
         public override void Dispose()

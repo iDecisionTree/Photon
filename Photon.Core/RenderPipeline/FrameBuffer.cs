@@ -57,6 +57,16 @@ namespace Photon.Core.RenderPipeline
             return depthBuffer.GetPixel(x, y).x;
         }
 
+        internal float GetDepthUnchecked(int x, int y)
+        {
+            if (_depthBuffer == null)
+            {
+                throw new InvalidOperationException("深度缓冲区未初始化");
+            }
+
+            return _depthBuffer.GetPixelUnchecked(x, y).x;
+        }
+
         public void SetColor(int x, int y, Vector4 color)
         {
             if (colorBuffer == null)
@@ -67,6 +77,16 @@ namespace Photon.Core.RenderPipeline
             colorBuffer.SetPixel(x, y, color);
         }
 
+        internal void SetColorUnchecked(int x, int y, Vector4 color)
+        {
+            if (_colorBuffer == null)
+            {
+                throw new InvalidOperationException("颜色缓冲区未初始化");
+            }
+
+            _colorBuffer.SetPixelUnchecked(x, y, color);
+        }
+
         public void SetDepth(int x, int y, float depth)
         {
             if (depthBuffer == null)
@@ -75,6 +95,16 @@ namespace Photon.Core.RenderPipeline
             }
 
             depthBuffer.SetPixel(x, y, new Vector4(depth, 0f, 0f, 0f));
+        }
+
+        internal void SetDepthUnchecked(int x, int y, float depth)
+        {
+            if (_depthBuffer == null)
+            {
+                throw new InvalidOperationException("深度缓冲区未初始化");
+            }
+
+            _depthBuffer.SetPixelUnchecked(x, y, new Vector4(depth, 0f, 0f, 0f));
         }
 
         public void Dispose()

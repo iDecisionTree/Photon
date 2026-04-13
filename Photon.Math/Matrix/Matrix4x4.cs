@@ -1,5 +1,6 @@
 ﻿using Photon.Math.Vector;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace Photon.Math.Matrix
 {
@@ -13,6 +14,7 @@ namespace Photon.Math.Matrix
         public readonly float m20, m21, m22, m23;
         public readonly float m30, m31, m32, m33;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix4x4(float m00, float m01, float m02, float m03, float m10, float m11, float m12, float m13, float m20, float m21, float m22, float m23, float m30, float m31, float m32, float m33)
         {
             this.m00 = m00;
@@ -43,6 +45,7 @@ namespace Photon.Math.Matrix
         public static readonly Matrix4x4 identity = new Matrix4x4(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f);
         public static readonly Matrix4x4 zero = new Matrix4x4(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator +(Matrix4x4 a, Matrix4x4 b)
         {
             return new Matrix4x4(
@@ -53,6 +56,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator +(Matrix4x4 a, float b)
         {
             return new Matrix4x4(
@@ -63,6 +67,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator +(float a, Matrix4x4 b)
         {
             return new Matrix4x4(
@@ -73,6 +78,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator -(Matrix4x4 a, Matrix4x4 b)
         {
             return new Matrix4x4(
@@ -83,6 +89,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator -(Matrix4x4 a, float b)
         {
             return new Matrix4x4(
@@ -93,6 +100,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator -(float a, Matrix4x4 b)
         {
             return new Matrix4x4(
@@ -103,6 +111,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator -(Matrix4x4 a)
         {
             return new Matrix4x4(
@@ -113,6 +122,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator *(Matrix4x4 a, Matrix4x4 b)
         {
             return new Matrix4x4(
@@ -138,16 +148,19 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4 operator *(Matrix4x4 m, Vector4 v)
         {
             return Transform(m, v);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator *(Matrix4x4 m, Vector3 v)
         {
             return TransformPoint(m, v);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator *(Matrix4x4 a, float b)
         {
             return new Matrix4x4(
@@ -158,6 +171,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator *(float a, Matrix4x4 b)
         {
             return new Matrix4x4(
@@ -168,6 +182,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 operator /(Matrix4x4 a, float b)
         {
             if (Mathf.Approximately(b, 0f))
@@ -184,6 +199,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Matrix4x4 a, Matrix4x4 b)
         {
             return Mathf.Approximately(a.m00, b.m00) && Mathf.Approximately(a.m01, b.m01) && Mathf.Approximately(a.m02, b.m02) && Mathf.Approximately(a.m03, b.m03) &&
@@ -192,11 +208,13 @@ namespace Photon.Math.Matrix
                    Mathf.Approximately(a.m30, b.m30) && Mathf.Approximately(a.m31, b.m31) && Mathf.Approximately(a.m32, b.m32) && Mathf.Approximately(a.m33, b.m33);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix4x4 a, Matrix4x4 b)
         {
             return !(a == b);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Matrix4x4 other)
         {
             return this == other;
@@ -205,6 +223,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// Z-X-Y 内旋, 接受弧度
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreateFromEulerAngles(float x, float y, float z)
         {
             Matrix4x4 rz = CreateRotationZ(z);
@@ -214,6 +233,7 @@ namespace Photon.Math.Matrix
             return ry * rx * rz;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreateFromQuaternion(Quaternion q)
         {
             q = q.normalized;
@@ -236,6 +256,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreateLookAt(Vector3 position, Vector3 forward, Vector3 right, Vector3 up)
         {
             return new Matrix4x4(
@@ -246,6 +267,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreatePerspectiveFieldOfView(float fov, float aspect, float near, float far)
         {
             float yScale = 1f / Mathf.Tan(fov * 0.5f);
@@ -264,6 +286,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// 接受弧度
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreateRotationX(float x)
         {
             float cos = Mathf.Cos(x);
@@ -280,6 +303,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// 接受弧度
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreateRotationY(float y)
         {
             float cos = Mathf.Cos(y);
@@ -296,6 +320,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// 接受弧度
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreateRotationZ(float z)
         {
             float cos = Mathf.Cos(z);
@@ -309,6 +334,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreateScale(Vector3 scale)
         {
             return new Matrix4x4(
@@ -319,6 +345,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreateTranslation(Vector3 translation)
         {
             return new Matrix4x4(
@@ -329,11 +356,13 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 CreateTRS(Vector3 translation, Quaternion rotation, Vector3 scale)
         {
             return CreateTranslation(translation) * CreateFromQuaternion(rotation) * CreateScale(scale);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Determinant(Matrix4x4 m)
         {
             float det0 = Determinant3(
@@ -360,6 +389,7 @@ namespace Photon.Math.Matrix
             return m.m00 * det0 - m.m01 * det1 + m.m02 * det2 - m.m03 * det3;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4 Transform(Matrix4x4 m, Vector4 v)
         {
             return new Vector4(
@@ -370,6 +400,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 TransformPoint(Matrix4x4 m, Vector3 v)
         {
             float x = m.m00 * v.x + m.m01 * v.y + m.m02 * v.z + m.m03;
@@ -388,6 +419,7 @@ namespace Photon.Math.Matrix
             return new Vector3(x, y, z);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 TransformVector(Matrix4x4 m, Vector3 v)
         {
             return new Vector3(
@@ -397,6 +429,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 Transpose(Matrix4x4 m)
         {
             return new Matrix4x4(
@@ -407,6 +440,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4 Invert(Matrix4x4 m)
         {
             float a00 = m.m00, a01 = m.m01, a02 = m.m02, a03 = m.m03;
@@ -459,16 +493,19 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float Determinant3(float a00, float a01, float a02, float a10, float a11, float a12, float a20, float a21, float a22)
         {
             return a00 * (a11 * a22 - a12 * a21) - a01 * (a10 * a22 - a12 * a20) + a02 * (a10 * a21 - a11 * a20);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is Matrix4x4 m && this == m;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             HashCode hash = new HashCode();
@@ -479,6 +516,7 @@ namespace Photon.Math.Matrix
             return hash.ToHashCode();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
             return $"Matrix4x4([{m00}, {m01}, {m02}, {m03}], [{m10}, {m11}, {m12}, {m13}], [{m20}, {m21}, {m22}, {m23}], [{m30}, {m31}, {m32}, {m33}])";

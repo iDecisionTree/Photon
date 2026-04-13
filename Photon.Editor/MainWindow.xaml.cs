@@ -58,7 +58,7 @@ namespace Photon.Editor
             MeshRenderer meshRenderer = _cube.AddComponent<MeshRenderer>();
             meshRenderer.mesh = MeshPrimitive.CreateCube(2f);
             ExampleMaterial material = new ExampleMaterial();
-            material.baseColor = new Vector4(0.2f, 0.6f, 0.8f, 1f);
+            material.baseColor = new Vector4(0f, 0f, 1f, 1f);
             meshRenderer.material = material;
 
             SceneObject cameraObj = new SceneObject("Camera");

@@ -1,6 +1,7 @@
 ﻿using Photon.Core.Geometry;
 using Photon.Core.Geometry.Vertex;
 using Photon.Math.Vector;
+using System.Threading.Tasks;
 
 namespace Photon.Core.RenderPipeline.PipelineStage.Device
 {
@@ -12,10 +13,12 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
 
         public override void Execute(RenderContext context, FrameBuffer? frameBuffer = null)
         {
-            for (int i = 0; i < context.geometryObjects.Count; i++)
+            ArgumentNullException.ThrowIfNull(context);
+
+            Parallel.For(0, context.geometryObjects.Count, i =>
             {
                 context.geometryObjects[i].primitive = Assemble(context.geometryObjects[i].mesh!);
-            }
+            });
         }
 
         public override void Dispose()

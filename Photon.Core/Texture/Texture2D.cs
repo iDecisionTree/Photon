@@ -1,5 +1,6 @@
 ﻿using Photon.Math;
 using Photon.Math.Vector;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Photon.Core.Texture
@@ -57,14 +58,20 @@ namespace Photon.Core.Texture
             }
 
             int bytesPerPixel = formatInfo.bytesPerPixel;
-            int pixelCount = width * height;
-
-            byte[] cache = new byte[bytesPerPixel];
-            formatInfo.Encode(cache, 0, color);
-
-            for (int i = 0; i < pixelCount; i++)
+            int byteLength = _data.Length;
+            if (byteLength == 0)
             {
-                Buffer.BlockCopy(cache, 0, _data, i * bytesPerPixel, bytesPerPixel);
+                return;
+            }
+
+            formatInfo.Encode(_data, 0, color);
+
+            int copiedLength = bytesPerPixel;
+            while (copiedLength < byteLength)
+            {
+                int copyLength = Mathf.Min(copiedLength, byteLength - copiedLength);
+                Buffer.BlockCopy(_data, 0, _data, copiedLength, copyLength);
+                copiedLength += copyLength;
             }
         }
 
@@ -85,6 +92,14 @@ namespace Photon.Core.Texture
             }
 
             byte[] newData = new byte[width * height * newFormatInfo.bytesPerPixel];
+            if (TextureFastConverter.TryConvert(_format, format, _data, newData, width * height))
+            {
+                _format = format;
+                _formatInfo = newFormatInfo;
+                _data = newData;
+                return;
+            }
+
             for (int i = 0; i < width * height; i++)
             {
                 Vector4 color = formatInfo.Decode(_data, i);
@@ -131,6 +146,17 @@ namespace Photon.Core.Texture
             return formatInfo.Decode(_data, pixelIndex);
         }
 
+        internal Vector4 GetPixelUnchecked(int x, int y)
+        {
+            if (_data == null)
+            {
+                throw new InvalidOperationException("纹理数据未初始化");
+            }
+
+            int pixelIndex = GetPixelIndexUnchecked(x, y);
+            return formatInfo.Decode(_data, pixelIndex);
+        }
+
         public void Save(string filePath)
         {
             if (_data == null)
@@ -138,18 +164,18 @@ namespace Photon.Core.Texture
                 throw new InvalidOperationException("纹理数据未初始化");
             }
 
+            byte[] data = _data;
+            TextureFormatInfo info = formatInfo;
+            int pixelCount = width * height;
             byte[] rgb = new byte[width * height * 3];
-            for (int y = 0; y < height; y++)
+            for (int i = 0; i < pixelCount; i++)
             {
-                for (int x = 0; x < width; x++)
-                {
-                    Vector4 color = GetPixel(x, y);
-                    int index = (y * width + x) * 3;
+                Vector4 color = info.Decode(data, i);
+                int index = i * 3;
 
-                    rgb[index] = (byte)Mathf.Clamp(color.x * 255f, 0f, 255f);
-                    rgb[index + 1] = (byte)Mathf.Clamp(color.y * 255f, 0f, 255f);
-                    rgb[index + 2] = (byte)Mathf.Clamp(color.z * 255f, 0f, 255f);
-                }
+                rgb[index] = (byte)Mathf.Clamp(color.x * 255f, 0f, 255f);
+                rgb[index + 1] = (byte)Mathf.Clamp(color.y * 255f, 0f, 255f);
+                rgb[index + 2] = (byte)Mathf.Clamp(color.z * 255f, 0f, 255f);
             }
 
             using (FileStream fs = new FileStream(filePath, FileMode.Create))
@@ -182,6 +208,23 @@ namespace Photon.Core.Texture
             formatInfo.Encode(_data, pixelIndex, color);
         }
 
+        internal void SetPixelUnchecked(int x, int y, Vector4 color)
+        {
+            if (_data == null)
+            {
+                throw new InvalidOperationException("纹理数据未初始化");
+            }
+
+            int pixelIndex = GetPixelIndexUnchecked(x, y);
+            formatInfo.Encode(_data, pixelIndex, color);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private int GetPixelIndexUnchecked(int x, int y)
+        {
+            return x + y * _width;
+        }
+
         private int GetPixelIndex(int x, int y)
         {
             return x + y * width;
@@ -195,13 +238,32 @@ namespace Photon.Core.Texture
         public static Texture2D ConvertTo(Texture2D source, TextureFormat format)
         {
             Texture2D newTexture = new Texture2D(source.width, source.height, format);
-            for (int y = 0; y < source.height; y++)
+            if (source._data == null || newTexture._data == null)
             {
-                for (int x = 0; x < source.width; x++)
-                {
-                    Vector4 color = source.GetPixel(x, y);
-                    newTexture.SetPixel(x, y, color);
-                }
+                throw new InvalidOperationException("纹理数据未初始化");
+            }
+
+            if (source.format == format)
+            {
+                Array.Copy(source._data, 0, newTexture._data, 0, source._data.Length);
+                return newTexture;
+            }
+
+            int pixelCount = source.width * source.height;
+            TextureFormatInfo sourceInfo = source.formatInfo;
+            TextureFormatInfo destinationInfo = newTexture.formatInfo;
+            byte[] sourceData = source._data;
+            byte[] destinationData = newTexture._data;
+
+            if (TextureFastConverter.TryConvert(source.format, format, sourceData, destinationData, pixelCount))
+            {
+                return newTexture;
+            }
+
+            for (int i = 0; i < pixelCount; i++)
+            {
+                Vector4 color = sourceInfo.Decode(sourceData, i);
+                destinationInfo.Encode(destinationData, i, color);
             }
 
             return newTexture;
@@ -227,6 +289,11 @@ namespace Photon.Core.Texture
             int pixelCount = source.width * source.height;
             TextureFormatInfo sourceInfo = source.formatInfo;
             TextureFormatInfo destinationInfo = destination.formatInfo;
+
+            if (TextureFastConverter.TryConvert(source.format, destination.format, source._data, destination._data, pixelCount))
+            {
+                return;
+            }
 
             for (int i = 0; i < pixelCount; i++)
             {

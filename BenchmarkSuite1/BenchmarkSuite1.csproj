@@ -13,4 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Photon.Core\Photon.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Baselines\" />
+  </ItemGroup>
 </Project>

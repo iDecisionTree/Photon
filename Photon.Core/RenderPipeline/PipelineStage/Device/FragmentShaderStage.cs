@@ -1,4 +1,5 @@
 ﻿using Photon.Core.Geometry.Fragment;
+using Photon.Core.Material;
 using Photon.Core.Shader;
 using Photon.Math.Vector;
 
@@ -25,10 +26,29 @@ namespace Photon.Core.RenderPipeline.PipelineStage.Device
                 throw new InvalidOperationException("Fragment 对应材质未绑定 Shader");
             }
 
-            shader.material = fragment.material;
-            shader.BindFragmentInput(fragment, out IVertexToFragment input);
-            shader.FragmentShader(input, out Vector4 color);
-            fragment.color = color;
+            if (ReferenceEquals(shader.material, fragment.material))
+            {
+                shader.BindFragmentInput(fragment, out IVertexToFragment input);
+                shader.FragmentShader(input, out Vector4 color);
+                fragment.color = color;
+                return fragment;
+            }
+
+            lock (shader)
+            {
+                MaterialBase originalMaterial = shader.material;
+                try
+                {
+                    shader.material = fragment.material;
+                    shader.BindFragmentInput(fragment, out IVertexToFragment input);
+                    shader.FragmentShader(input, out Vector4 color);
+                    fragment.color = color;
+                }
+                finally
+                {
+                    shader.material = originalMaterial;
+                }
+            }
 
             return fragment;
         }

@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿using Photon.Math.Vector;
 
 namespace Photon.Core.Shader
 {

@@ -1,5 +1,6 @@
 ﻿using Photon.Math.Vector;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace Photon.Math.Matrix
 {
@@ -12,6 +13,7 @@ namespace Photon.Math.Matrix
         public readonly float m10, m11, m12;
         public readonly float m20, m21, m22;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix3x3(float m00, float m01, float m02, float m10, float m11, float m12, float m20, float m21, float m22)
         {
             this.m00 = m00;
@@ -28,6 +30,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// 接受列向量
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix3x3(Vector3 v0, Vector3 v1, Vector3 v2)
         {
             m00 = v0.x;
@@ -48,6 +51,7 @@ namespace Photon.Math.Matrix
         public static readonly Matrix3x3 identity = new Matrix3x3(1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f);
         public static readonly Matrix3x3 zero = new Matrix3x3(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator +(Matrix3x3 a, Matrix3x3 b)
         {
             return new Matrix3x3(
@@ -57,6 +61,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator +(Matrix3x3 a, float b)
         {
             return new Matrix3x3(
@@ -66,6 +71,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator +(float a, Matrix3x3 b)
         {
             return new Matrix3x3(
@@ -75,6 +81,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator -(Matrix3x3 a, Matrix3x3 b)
         {
             return new Matrix3x3(
@@ -84,6 +91,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator -(Matrix3x3 a, float b)
         {
             return new Matrix3x3(
@@ -93,6 +101,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator -(float a, Matrix3x3 b)
         {
             return new Matrix3x3(
@@ -102,6 +111,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator -(Matrix3x3 a)
         {
             return new Matrix3x3(
@@ -111,6 +121,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator *(Matrix3x3 a, Matrix3x3 b)
         {
             return new Matrix3x3(
@@ -128,6 +139,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator *(Matrix3x3 m, Vector3 v)
         {
             return new Vector3(
@@ -137,6 +149,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator *(Matrix3x3 a, float b)
         {
             return new Matrix3x3(
@@ -146,6 +159,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator *(float a, Matrix3x3 b)
         {
             return new Matrix3x3(
@@ -155,6 +169,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 operator /(Matrix3x3 a, float b)
         {
             if (Mathf.Approximately(b, 0f))
@@ -170,6 +185,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Matrix3x3 a, Matrix3x3 b)
         {
             return Mathf.Approximately(a.m00, b.m00) && Mathf.Approximately(a.m01, b.m01) && Mathf.Approximately(a.m02, b.m02) &&
@@ -177,16 +193,19 @@ namespace Photon.Math.Matrix
                    Mathf.Approximately(a.m20, b.m20) && Mathf.Approximately(a.m21, b.m21) && Mathf.Approximately(a.m22, b.m22);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix3x3 a, Matrix3x3 b)
         {
             return !(a == b);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Matrix3x3 other)
         {
             return this == other;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 CreateScale(Vector3 scale)
         {
             return new Matrix3x3(
@@ -199,6 +218,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// 接受弧度
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 CreateRotationX(float x)
         {
             float cos = Mathf.Cos(x);
@@ -214,6 +234,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// 接受弧度
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 CreateRotationY(float y)
         {
             float cos = Mathf.Cos(y);
@@ -229,6 +250,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// 接受弧度
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 CreateRotationZ(float z)
         {
             float cos = Mathf.Cos(z);
@@ -244,6 +266,7 @@ namespace Photon.Math.Matrix
         /// <summary>
         /// Z-X-Y内旋, 接受弧度
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 CreateFromEulerAngles(float x, float y, float z)
         {
             Matrix3x3 rz = CreateRotationZ(z);
@@ -253,11 +276,13 @@ namespace Photon.Math.Matrix
             return rz * rx * ry;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Determinant(Matrix3x3 m)
         {
             return m.m00 * (m.m11 * m.m22 - m.m12 * m.m21) - m.m01 * (m.m10 * m.m22 - m.m12 * m.m20) + m.m02 * (m.m10 * m.m21 - m.m11 * m.m20);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 Invert(Matrix3x3 m)
         {
             float det = m.determinant;
@@ -287,6 +312,7 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3 Transpose(Matrix3x3 m)
         {
             return new Matrix3x3(
@@ -296,11 +322,13 @@ namespace Photon.Math.Matrix
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is Matrix3x3 m && this == m;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             HashCode hash = new();
@@ -310,6 +338,7 @@ namespace Photon.Math.Matrix
             return hash.ToHashCode();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
             return $"Matrix3x3([{m00}, {m01}, {m02}], [{m10}, {m11}, {m12}], [{m20}, {m21}, {m22}])";

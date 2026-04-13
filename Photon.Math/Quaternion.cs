@@ -1,5 +1,6 @@
-Ôªøusing Photon.Math.Vector;
+using Photon.Math.Vector;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace Photon.Math
 {
@@ -10,6 +11,7 @@ namespace Photon.Math
         public readonly float z;
         public readonly float w;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Quaternion(float x, float y, float z, float w)
         {
             this.x = x;
@@ -26,41 +28,49 @@ namespace Photon.Math
 
         public static readonly Quaternion identity = new Quaternion(0f, 0f, 0f, 1f);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator +(Quaternion a, Quaternion b)
         {
             return new Quaternion(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator +(Quaternion a, float b)
         {
             return new Quaternion(a.x + b, a.y + b, a.z + b, a.w + b);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator +(float a, Quaternion b)
         {
             return new Quaternion(a + b.x, a + b.y, a + b.z, a + b.w);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator -(Quaternion a, Quaternion b)
         {
             return new Quaternion(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator -(Quaternion a, float b)
         {
             return new Quaternion(a.x - b, a.y - b, a.z - b, a.w - b);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator -(float a, Quaternion b)
         {
             return new Quaternion(a - b.x, a - b.y, a - b.z, a - b.w);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator -(Quaternion q)
         {
             return new Quaternion(-q.x, -q.y, -q.z, -q.w);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator *(Quaternion a, Quaternion b)
         {
             return new Quaternion(
@@ -71,6 +81,7 @@ namespace Photon.Math
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator *(Quaternion q, Vector3 v)
         {
             Vector3 u = new Vector3(q.x, q.y, q.z);
@@ -79,55 +90,64 @@ namespace Photon.Math
             return v + q.w * t + Vector3.Cross(u, t);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator *(Quaternion a, float b)
         {
             return new Quaternion(a.x * b, a.y * b, a.z * b, a.w * b);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator *(float a, Quaternion b)
         {
             return new Quaternion(a * b.x, a * b.y, a * b.z, a * b.w);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion operator /(Quaternion a, float b)
         {
             if (Mathf.Approximately(b, 0f))
             {
-                throw new DivideByZeroException($"{a.ToString()}‰∏çËÉΩÈô§‰ª•0");
+                throw new DivideByZeroException($"{a.ToString()}≤ªƒ‹≥˝“‘0");
             }
 
             float inv = 1f / b;
             return new Quaternion(a.x * inv, a.y * inv, a.z * inv, a.w * inv);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Quaternion a, Quaternion b)
         {
             return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y) && Mathf.Approximately(a.z, b.z) && Mathf.Approximately(a.w, b.w);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Quaternion a, Quaternion b)
         {
             return !(a == b);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Quaternion other)
         {
             return this == other;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion Conjugate(Quaternion q)
         {
             return new Quaternion(-q.x, -q.y, -q.z, q.w);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Dot(Quaternion a, Quaternion b)
         {
             return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
         }
 
         /// <summary>
-        /// Z-X-YÂÜÖÊóã, Êé•ÂèóÂºßÂ∫¶
+        /// Z-X-Yƒ⁄–˝, Ω” ‹ª°∂»
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion FromEulerAngles(Vector3 eulerAngles)
         {
             float hz = eulerAngles.z * 0.5f;
@@ -149,8 +169,9 @@ namespace Photon.Math
         }
 
         /// <summary>
-        /// Z-X-YÂÜÖÊóã, Êé•ÂèóÂºßÂ∫¶
+        /// Z-X-Yƒ⁄–˝, Ω” ‹ª°∂»
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion FromEulerAngles(float x, float y, float z)
         {
             float hz = z * 0.5f;
@@ -171,36 +192,42 @@ namespace Photon.Math
             return qy * qx * qz;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion Invert(Quaternion q)
         {
             float lengthSquared = q.lengthSquared;
             if (Mathf.Approximately(lengthSquared, 0f))
             {
-                throw new InvalidOperationException($"ÂõõÂÖÉÊï∞{q}‰∏çÂèØÈÄÜ");
+                throw new InvalidOperationException($"Àƒ‘™ ˝{q}≤ªø…ƒÊ");
             }
             return q.conjugated / q.lengthSquared;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Length(Quaternion q)
         {
             return Mathf.Sqrt(q.lengthSquared);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float LengthSquared(Quaternion q)
         {
             return q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion Lerp(Quaternion a, Quaternion b, float t)
         {
             return (a + (b - a) * Mathf.Clamp01(t)).normalized;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion LerpUnclamped(Quaternion a, Quaternion b, float t)
         {
             return (a + (b - a) * t).normalized;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion Normalize(Quaternion q)
         {
             float length = q.length;
@@ -211,11 +238,13 @@ namespace Photon.Math
             return q / length;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 RotateVector(Quaternion q, Vector3 v)
         {
             return q * v;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion Slerp(Quaternion a, Quaternion b, float t)
         {
             t = Mathf.Clamp01(t);
@@ -248,16 +277,19 @@ namespace Photon.Math
             );
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is Quaternion q && this == q;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             return HashCode.Combine(x, y, z, w);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
             return $"Quaternion({x}, {y}, {z}, {w})";
