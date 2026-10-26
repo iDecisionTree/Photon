@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Photon.Backend/Photon.Backend.csproj" />
+  <Project Path="Photon.Core/Photon.Core.csproj" />
+  <Project Path="Photon.Editor/Photon.Editor.csproj" />
+  <Project Path="Photon.Pipeline/Photon.Pipeline.csproj" />
+</Solution>
